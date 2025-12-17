@@ -29,7 +29,7 @@ const BullCard: React.FC<BullCardProps> = ({ bull }) => {
         <div className="flex justify-between items-start mb-4">
           <div>
             <h3 className="text-2xl font-display font-bold text-gray-900">{bull.name}</h3>
-            <p className="text-sm text-gray-500">{bull.code}</p>
+            <p className="text-sm text-gray-500 font-mono">{bull.naab}</p>
           </div>
           <div className="bg-brand-green/10 text-brand-darkGreen px-3 py-1 rounded-lg font-bold text-sm">
             GTPI +{bull.stats.gtpi}
@@ -43,7 +43,7 @@ const BullCard: React.FC<BullCardProps> = ({ bull }) => {
                 </div>
                 <div>
                     <span className="block text-xs text-gray-500">Milk</span>
-                    <span className="font-bold text-gray-800">+{bull.stats.milk}</span>
+                    <span className="font-bold text-gray-800">{bull.stats.milk > 0 ? '+' : ''}{bull.stats.milk}</span>
                 </div>
             </div>
             <div className="flex items-center gap-2">
