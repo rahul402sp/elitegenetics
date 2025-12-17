@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Mail, MapPin, Dna } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import { COMPANY_INFO } from '../constants';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -32,23 +32,33 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-24">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-4 group">
-              <div className="flex flex-col">
-                <div className="flex items-baseline leading-none">
-                    <span className="text-3xl font-display font-extrabold text-brand-green tracking-tight">Elite</span>
-                    <span className="text-3xl font-display font-extrabold text-brand-blue ml-1.5 tracking-tight">Genetics</span>
-                </div>
-                <div className="flex items-center gap-2 mt-1.5">
-                   <div className="h-0.5 bg-brand-green w-8 rounded-full"></div>
-                   <span className="text-[10px] text-gray-500 font-medium tracking-wide uppercase whitespace-nowrap hidden sm:block">
-                    your Trusted Partner in Livestock Success
-                   </span>
-                   <div className="h-0.5 bg-gray-200 flex-grow rounded-full hidden sm:block"></div>
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                  <Dna className="h-10 w-10 text-brand-blue" strokeWidth={2} />
-              </div>
+            <Link to="/" className="flex items-center h-full py-4 group">
+              <img 
+                src="logo.png" 
+                alt="Elite Genetics LTD." 
+                className="h-full w-auto object-contain max-h-[80px]" 
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement;
+                  if (parent) {
+                    const fallback = document.createElement('div');
+                    fallback.className = 'flex flex-col';
+                    fallback.innerHTML = `
+                      <div class="flex items-baseline leading-none">
+                          <span class="text-3xl font-display font-extrabold text-brand-green tracking-tight">Elite</span>
+                          <span class="text-3xl font-display font-extrabold text-brand-blue ml-1.5 tracking-tight">Genetics LTD.</span>
+                      </div>
+                      <div class="flex items-center gap-2 mt-1">
+                         <div class="h-0.5 bg-brand-green w-6 rounded-full"></div>
+                         <span class="text-[9px] text-gray-900 font-semibold tracking-tight uppercase whitespace-nowrap">
+                          your Trusted Partner in Livestock Success
+                         </span>
+                      </div>
+                    `;
+                    parent.appendChild(fallback);
+                  }
+                }}
+              />
             </Link>
 
             {/* Desktop Menu */}
@@ -93,17 +103,31 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
-              {/* Footer Logo Variant */}
-              <div className="flex items-center gap-4 mb-6">
-                 <div className="flex flex-col">
-                    <div className="flex items-baseline leading-none">
-                        <span className="text-3xl font-display font-extrabold text-brand-green tracking-tight">Elite</span>
-                        <span className="text-3xl font-display font-extrabold text-white ml-1.5 tracking-tight">Genetics</span>
-                    </div>
-                    <span className="text-[10px] text-gray-400 font-medium tracking-wider uppercase mt-1">
-                        Livestock Success
-                    </span>
-                 </div>
+              {/* Footer Logo */}
+              <div className="mb-6 bg-white/10 p-4 rounded-xl inline-block">
+                <img 
+                  src="logo.png" 
+                  alt="Elite Genetics LTD." 
+                  className="h-16 w-auto object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const parent = e.currentTarget.parentElement;
+                    if (parent) {
+                      const fallback = document.createElement('div');
+                      fallback.className = 'flex flex-col';
+                      fallback.innerHTML = `
+                          <div class="flex items-baseline leading-none">
+                              <span class="text-2xl font-display font-extrabold text-brand-green tracking-tight">Elite</span>
+                              <span class="text-2xl font-display font-extrabold text-white ml-1 tracking-tight">Genetics LTD.</span>
+                          </div>
+                          <span class="text-[9px] text-gray-400 font-medium tracking-wider uppercase mt-1">
+                              your Trusted Partner in Livestock Success
+                          </span>
+                      `;
+                      parent.appendChild(fallback);
+                    }
+                  }}
+                />
               </div>
               
               <p className="mb-6 leading-relaxed">
