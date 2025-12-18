@@ -1,9 +1,12 @@
+
+// Add missing Target icon import from lucide-react
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   ArrowLeft, Share2, Activity, Droplets, Heart, ShieldCheck, 
   Award, Zap, Ruler, Beaker, TrendingUp, Info, LayoutList, 
-  ClipboardCheck, ChevronRight, BarChart4, Facebook, Twitter, Linkedin
+  ClipboardCheck, ChevronRight, BarChart4, Facebook, Twitter, Linkedin,
+  FileText, Activity as HealthIcon, Target
 } from 'lucide-react';
 import { BULLS } from '../constants';
 
@@ -67,7 +70,7 @@ const BullDetail: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#fcfdfe] min-h-screen">
+    <div className="bg-[#fcfdfe] min-h-screen pb-24 sm:pb-40">
       {/* Dynamic Header */}
       <div className="bg-brand-black text-white pt-10 pb-24 sm:pb-32 relative overflow-hidden px-4">
         {/* Abstract Background Design */}
@@ -129,7 +132,7 @@ const BullDetail: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 -mt-10 sm:-mt-16 relative z-20 pb-24 sm:pb-40">
+      <div className="container mx-auto px-4 -mt-10 sm:-mt-16 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* Left Sidebar */}
@@ -186,6 +189,8 @@ const BullDetail: React.FC = () => {
                       { label: 'Dam', val: bull.extendedPedigree?.dam || bull.pedigree.dam },
                       { label: 'MGS', val: bull.extendedPedigree?.mgs || bull.pedigree.mgs },
                       { label: 'MGD', val: bull.extendedPedigree?.mgd || 'N/A' },
+                      { label: 'MGGS', val: bull.extendedPedigree?.mggs || 'N/A' },
+                      { label: 'MGGD', val: bull.extendedPedigree?.mggd || 'N/A' },
                     ].map((item, i) => (
                       <div key={i} className="relative">
                         <div className="absolute -left-[31px] top-1 w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_rgba(140,198,63,0.4)]"></div>
@@ -224,16 +229,17 @@ const BullDetail: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Panel */}
+          {/* Right Panel - Detailed Evaluation */}
           <div className="lg:col-span-8 space-y-8 lg:space-y-10">
+            {/* Bull Bio */}
             <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_15px_30px_-5px_rgba(57,130,217,0.05)] border border-slate-100 p-8 sm:p-10 lg:p-14">
                 <div className="flex items-center gap-4 mb-6 sm:mb-8">
                     <div className="w-10 h-10 sm:w-14 sm:h-14 bg-blue-50 rounded-xl sm:rounded-2xl flex items-center justify-center text-brand-black">
                         <Info size={24} className="sm:size-30" />
                     </div>
                     <div>
-                        <h2 className="text-2xl sm:text-3xl font-display font-black text-gray-900 tracking-tight italic">Breeder's Strategic Summary</h2>
-                        <p className="text-[8px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mt-1">High Profit Potential Sire</p>
+                        <h2 className="text-2xl sm:text-3xl font-display font-black text-gray-900 tracking-tight italic uppercase">Breeder's Strategic Summary</h2>
+                        <p className="text-[8px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mt-1">Professional Genetic Insight</p>
                     </div>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-lg sm:text-2xl mb-8 sm:mb-12 font-medium tracking-tight">
@@ -241,46 +247,177 @@ const BullDetail: React.FC = () => {
                 </p>
             </div>
 
+            {/* Genetics Evaluation Section */}
             {bull.evaluations && (
-              <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_15px_30px_-5px_rgba(57,130,217,0.05)] border border-slate-100 overflow-hidden">
-                <div className="bg-brand-black p-8 sm:p-10 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-8 text-white border-b-4 border-brand-green">
-                  <div className="flex items-center gap-4 sm:gap-6 text-center sm:text-left">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/10 rounded-2xl sm:rounded-3xl flex items-center justify-center text-brand-green shadow-inner mx-auto sm:mx-0">
-                      <Droplets size={24} className="sm:size-32" />
+              <div className="space-y-8 lg:space-y-10">
+                {/* 1. Production Evaluation */}
+                <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_15px_30px_-5px_rgba(57,130,217,0.05)] border border-slate-100 overflow-hidden">
+                    <div className="bg-brand-blue/5 p-8 sm:p-10 flex flex-col sm:flex-row justify-between items-center gap-6 text-brand-black border-b border-slate-100">
+                        <div className="flex items-center gap-4 sm:gap-6">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brand-blue rounded-2xl flex items-center justify-center text-white shadow-lg">
+                                <Droplets size={24} />
+                            </div>
+                            <h3 className="text-xl sm:text-2xl font-display font-black tracking-tight uppercase italic">Production <span className="text-brand-blue">Evaluation</span></h3>
+                        </div>
+                        <div className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Reliability: {bull.evaluations.production.reliability}%</div>
                     </div>
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-display font-black tracking-tight uppercase">Genetics Evaluation</h3>
-                      <p className="text-[8px] sm:text-[10px] text-white/50 font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] mt-1 italic">CDCB Evaluation Data (Updated 08/2025)</p>
+                    <div className="p-8 sm:p-12">
+                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-10">
+                            {[
+                                { label: 'Milk', val: bull.evaluations.production.milk, unit: 'lbs' },
+                                { label: 'Fat %', val: `+${bull.evaluations.production.fatPct}%` },
+                                { label: 'Fat', val: `+${bull.evaluations.production.fat}`, unit: 'lbs' },
+                                { label: 'Prot %', val: `+${bull.evaluations.production.protPct}%` },
+                                { label: 'Prot', val: `+${bull.evaluations.production.prot}`, unit: 'lbs' },
+                            ].map((p, i) => (
+                                <div key={i} className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center">
+                                    <span className="text-[8px] font-black text-gray-400 uppercase tracking-widest block mb-2">{p.label}</span>
+                                    <span className="text-xl font-display font-black text-brand-black">{p.val}</span>
+                                    {p.unit && <span className="text-[9px] font-bold text-gray-400 block mt-1">{p.unit}</span>}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                            {[
+                                { label: 'Net Merit $', val: `+$${bull.evaluations.production.nm}` },
+                                { label: 'DWP$', val: `+$${bull.evaluations.production.dwp}` },
+                                { label: 'Cheese Merit $', val: `+$${bull.evaluations.production.cm}` },
+                                { label: 'Combined F+P', val: `+${bull.evaluations.production.cfp}` },
+                            ].map((m, i) => (
+                                <div key={i} className="flex justify-between items-center p-5 bg-white border border-slate-100 rounded-xl">
+                                    <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">{m.label}</span>
+                                    <span className="font-display font-black text-brand-black">{m.val}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                  </div>
-                  <div className="bg-white/10 px-6 sm:px-10 py-4 sm:py-6 rounded-2xl sm:rounded-[2.5rem] border border-white/20 text-center backdrop-blur-md w-full sm:w-auto">
-                    <span className="text-[8px] sm:text-[10px] text-white/60 font-black uppercase tracking-widest block mb-1 sm:mb-2">Production Reliability</span>
-                    <span className="text-3xl sm:text-4xl font-display font-black text-brand-green">{bull.evaluations.production.reliability}%</span>
-                  </div>
                 </div>
 
-                <div className="p-6 sm:p-12">
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-16">
-                    {[
-                      { label: 'PTAM (Milk)', val: bull.evaluations.production.milk, unit: 'lbs', color: 'text-gray-900' },
-                      { label: 'PTA Fat', val: `${bull.evaluations.production.fat} lbs`, sub: `+${bull.evaluations.production.fatPct}%`, color: 'text-brand-black' },
-                      { label: 'PTA Protein', val: `${bull.evaluations.production.prot} lbs`, sub: `+${bull.evaluations.production.protPct}%`, color: 'text-brand-green' },
-                      { label: 'Combined F+P', val: bull.evaluations.production.cfp, unit: 'lbs', color: 'text-gray-900' },
-                    ].map((stat, i) => (
-                      <div key={i} className="text-center p-6 sm:p-8 bg-slate-50/50 rounded-2xl sm:rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-2xl transition-all">
-                        <span className="text-[8px] sm:text-[10px] text-gray-400 font-black uppercase tracking-widest block mb-2 sm:mb-4">{stat.label}</span>
-                        <span className={`text-xl sm:text-3xl font-display font-black block ${stat.color}`}>
-                          {stat.val.toString().startsWith('+') || typeof stat.val === 'number' && stat.val > 0 ? '+' : ''}{stat.val}
-                        </span>
-                        {stat.sub && <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-gray-400 mt-1 sm:mt-2 block">{stat.sub}</span>}
-                      </div>
-                    ))}
-                  </div>
+                {/* 2. Functional & Calving Traits */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+                    {/* Calving Traits */}
+                    <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 overflow-hidden flex flex-col">
+                        <div className="bg-slate-900 p-8 flex items-center gap-4 text-white">
+                            <Target size={24} className="text-brand-green" />
+                            <h3 className="font-display font-black uppercase tracking-tight text-lg">Calving Traits</h3>
+                        </div>
+                        <div className="p-8 space-y-4 flex-grow">
+                            {[
+                                { label: 'Sire Calving Ease', val: `${bull.evaluations.calving.sce}%` },
+                                { label: 'Daughter Calving Ease', val: `${bull.evaluations.calving.dce}%` },
+                                { label: 'Sire Still Birth', val: `${bull.evaluations.calving.ssb}%` },
+                                { label: 'Daughter Still Birth', val: `${bull.evaluations.calving.dsb}%` },
+                            ].map((c, i) => (
+                                <div key={i} className="flex justify-between items-center py-4 border-b border-slate-50 last:border-0">
+                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">{c.label}</span>
+                                    <span className="font-display font-black text-brand-black">{c.val}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Functional Traits */}
+                    <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 overflow-hidden flex flex-col">
+                        <div className="bg-brand-blue p-8 flex items-center gap-4 text-white">
+                            <HealthIcon size={24} className="text-white" />
+                            <h3 className="font-display font-black uppercase tracking-tight text-lg">Health & Functional</h3>
+                        </div>
+                        <div className="p-8 grid grid-cols-2 gap-x-8 gap-y-4">
+                            {[
+                                { label: 'FI', val: `+${bull.evaluations.health.fi}` },
+                                { label: 'DPR', val: bull.evaluations.health.dpr },
+                                { label: 'HCR', val: `+${bull.evaluations.health.hcr}` },
+                                { label: 'CCR', val: `+${bull.evaluations.health.ccr}` },
+                                { label: 'Mastitis', val: `+${bull.evaluations.health.mastitis}` },
+                                { label: 'SCS', val: bull.evaluations.health.scs },
+                                { label: 'PL', val: `+${bull.evaluations.health.pl}` },
+                                { label: 'FE', val: bull.evaluations.health.fe },
+                            ].map((h, i) => (
+                                <div key={i} className="flex justify-between items-center py-3 border-b border-slate-50 last:border-0">
+                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">{h.label}</span>
+                                    <span className="font-display font-black text-brand-black">{h.val}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
+
+                {/* 3. Linear Traits - Visual Chart */}
+                {bull.linearTraitsFull && (
+                    <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 overflow-hidden">
+                        <div className="bg-slate-50 p-8 sm:p-10 flex items-center justify-between border-b border-slate-100">
+                             <div className="flex items-center gap-4">
+                                <Ruler size={24} className="text-brand-blue" />
+                                <h3 className="font-display font-black uppercase text-xl italic">Linear <span className="text-brand-blue">Traits</span></h3>
+                             </div>
+                             <div className="flex gap-4 text-[9px] font-black uppercase tracking-widest text-gray-400">
+                                <span>-2.0</span>
+                                <span>-1.0</span>
+                                <span className="text-brand-blue">0</span>
+                                <span>+1.0</span>
+                                <span>+2.0</span>
+                             </div>
+                        </div>
+                        <div className="p-8 sm:p-12 space-y-6">
+                            {bull.linearTraitsFull.map((lt, idx) => (
+                                <div key={idx} className="grid grid-cols-12 gap-4 items-center">
+                                    <div className="col-span-3 text-right">
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">{lt.trait}</span>
+                                    </div>
+                                    <div className="col-span-2 text-right">
+                                        <span className="text-[10px] font-bold text-gray-400">{lt.labelLow}</span>
+                                    </div>
+                                    <div className="col-span-2 relative h-4 bg-slate-100 rounded-full flex items-center">
+                                        {/* Simplified visual bar from -2 to +2 */}
+                                        <div className="absolute left-1/2 w-[2px] h-full bg-slate-300 -translate-x-1/2 z-0"></div>
+                                        <div 
+                                            className={`absolute h-3 w-3 rounded-full shadow-lg transition-all duration-1000 z-10 ${lt.value > 0 ? 'bg-brand-green' : 'bg-brand-blue'}`}
+                                            style={{ 
+                                                left: `${50 + (lt.value * 25)}%`,
+                                                transform: 'translateX(-50%)' 
+                                            }}
+                                        ></div>
+                                    </div>
+                                    <div className="col-span-2 text-left">
+                                        <span className="text-[10px] font-bold text-gray-400">{lt.labelHigh}</span>
+                                    </div>
+                                    <div className="col-span-3 text-left">
+                                        <span className={`text-[11px] font-black font-display ${lt.value > 0 ? 'text-brand-green' : 'text-brand-blue'}`}>
+                                            {lt.value > 0 ? '+' : ''}{lt.value.toFixed(2)}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="p-8 bg-slate-50 grid grid-cols-3 gap-8 text-center border-t border-slate-100">
+                             <div>
+                                <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">PTAT</span>
+                                <span className="text-xl font-display font-black text-brand-black">+{bull.evaluations.type.ptat.toFixed(2)}</span>
+                             </div>
+                             <div>
+                                <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Udder Composite</span>
+                                <span className="text-xl font-display font-black text-brand-green">+{bull.evaluations.type.udc.toFixed(2)}</span>
+                             </div>
+                             <div>
+                                <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Feet & Legs</span>
+                                <span className="text-xl font-display font-black text-brand-blue">{bull.evaluations.type.flc.toFixed(2)}</span>
+                             </div>
+                        </div>
+                    </div>
+                )}
               </div>
             )}
           </div>
         </div>
+      </div>
+      
+      {/* Disclaimer */}
+      <div className="container mx-auto px-4 mt-20">
+         <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 text-center">
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] leading-relaxed max-w-4xl mx-auto">
+                * Genetic data provided by CDCB and official breed associations. Evaluations are subject to change based on new genomic data points. Elite Genetics LTD. guarantees the highest standards of storage and logistics but not the specific outcome of individual matings.
+            </p>
+         </div>
       </div>
     </div>
   );

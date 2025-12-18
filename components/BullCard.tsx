@@ -101,7 +101,7 @@ const BullCard: React.FC<BullCardProps> = ({ bull }) => {
         >
           <div className="absolute inset-0 bg-brand-black group-hover:bg-brand-blue transition-colors duration-500 rounded-2xl"></div>
           <div className="relative py-5 px-8 flex items-center justify-between text-white">
-            <span className="font-black uppercase tracking-[0.3em] text-[10px]">Analyze Sire Profile</span>
+            <span className="font-black uppercase tracking-[0.3em] text-[10px]">View Profile</span>
             <div className="flex items-center gap-1">
               <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform duration-300" />
               <ArrowRight size={16} className="opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all duration-300" />
