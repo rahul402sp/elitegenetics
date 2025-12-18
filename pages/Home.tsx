@@ -37,7 +37,7 @@ const Home: React.FC = () => {
                 <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white">Leading The Genomic Era</span>
               </div>
               
-              <h1 className="text-4xl sm:text-6xl md:text-8xl xl:text-9xl font-display font-black leading-[0.9] mb-8 sm:mb-10 tracking-tighter uppercase">
+              <h1 className="text-5xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] xl:text-[9.5rem] font-display font-black leading-[0.85] mb-8 sm:mb-10 tracking-tighter uppercase">
                 <span className="text-brand-green">Elite</span> <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/70">
                   Genetics.

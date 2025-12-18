@@ -43,23 +43,23 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white shadow-2xl py-2' : 'bg-white py-4'}`}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-20">
-            {/* Logo Reconstruction */}
-            <Link to="/" className="flex items-center gap-2 sm:gap-4 group">
+            {/* Logo Reconstruction - Enlarged for professional impact */}
+            <Link to="/" className="flex items-center gap-3 sm:gap-4 group">
               <div className="flex flex-col items-end">
                   <div className="flex items-baseline leading-none">
-                      <span className="text-2xl sm:text-3xl font-display font-black text-brand-green tracking-tighter uppercase italic">Elite</span>
-                      <span className="text-2xl sm:text-3xl font-display font-black text-brand-blue ml-1.5 tracking-tighter uppercase italic">Genetics LTD.</span>
+                      <span className="text-[28px] sm:text-[32px] md:text-4xl font-display font-black text-brand-green tracking-tighter uppercase italic">Elite</span>
+                      <span className="text-[28px] sm:text-[32px] md:text-4xl font-display font-black text-brand-blue ml-2 tracking-tighter uppercase italic">Genetics LTD.</span>
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                     <span className="text-[7px] sm:text-[8.5px] text-gray-400 font-bold tracking-[0.2em] uppercase whitespace-nowrap">
+                     <span className="text-[8px] sm:text-[9.5px] text-gray-400 font-bold tracking-[0.25em] uppercase whitespace-nowrap">
                       Your Trusted Partner in Success
                      </span>
-                     <div className="h-[2px] bg-brand-green w-4 sm:w-8 rounded-full"></div>
+                     <div className="h-[2px] bg-brand-green w-5 sm:w-10 rounded-full"></div>
                   </div>
               </div>
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                 <Dna size={30} className="text-brand-blue rotate-12 group-hover:rotate-45 transition-transform duration-700" />
-                 <Dna size={30} className="text-brand-green absolute -rotate-12 group-hover:-rotate-45 transition-transform duration-700 opacity-60" />
+              <div className="relative w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center">
+                 <Dna size={32} className="text-brand-blue rotate-12 group-hover:rotate-45 transition-transform duration-700" />
+                 <Dna size={32} className="text-brand-green absolute -rotate-12 group-hover:-rotate-45 transition-transform duration-700 opacity-60" />
               </div>
             </Link>
 
@@ -116,12 +116,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <div className="md:col-span-5">
               <div className="mb-8 sm:mb-10">
                 <div className="flex items-baseline leading-none mb-3">
-                    <span className="text-2xl sm:text-3xl font-display font-black text-brand-green tracking-tighter uppercase italic">Elite</span>
-                    <span className="text-2xl sm:text-3xl font-display font-black text-white ml-2 tracking-tighter uppercase italic">Genetics LTD.</span>
+                    <span className="text-3xl sm:text-4xl font-display font-black text-brand-green tracking-tighter uppercase italic">Elite</span>
+                    <span className="text-3xl sm:text-4xl font-display font-black text-white ml-2 tracking-tighter uppercase italic">Genetics LTD.</span>
                 </div>
                 <div className="flex items-center gap-3">
-                   <div className="h-[2px] bg-brand-green w-6 sm:w-8 rounded-full"></div>
-                   <span className="text-[9px] sm:text-[10px] text-white/60 font-black tracking-[0.4em] uppercase">
+                   <div className="h-[2px] bg-brand-green w-8 sm:w-10 rounded-full"></div>
+                   <span className="text-[10px] sm:text-[11px] text-white/60 font-black tracking-[0.4em] uppercase">
                     Your Trusted Partner in Success
                    </span>
                 </div>
