@@ -21,7 +21,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans selection:bg-brand-blue selection:text-white">
-      {/* Top Bar - Updated to brand-black (now #3982D9) */}
+      {/* Top Bar */}
       <div className="bg-brand-black text-white text-[10px] py-2.5 hidden md:block border-b border-white/10 relative z-[60]">
         <div className="container mx-auto px-6 flex justify-between items-center uppercase font-black tracking-[0.2em]">
           <div className="flex gap-8">
@@ -40,7 +40,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </div>
 
       {/* Main Navigation */}
-      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-2xl py-2' : 'bg-white py-4'}`}>
+      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white shadow-2xl py-2' : 'bg-white py-4'}`}>
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center h-20">
             {/* Logo Reconstruction */}
@@ -81,9 +81,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Now with solid white background */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white/98 backdrop-blur-2xl border-t py-12 shadow-2xl absolute top-full left-0 w-full animate-in slide-in-from-top-4">
+          <div className="lg:hidden bg-white border-t py-12 shadow-2xl absolute top-full left-0 w-full animate-in slide-in-from-top-4 z-50">
             <div className="container mx-auto px-8 flex flex-col space-y-4">
               <Link to="/" className="text-gray-900 font-black uppercase tracking-[0.3em] text-[14px] py-5 border-b border-gray-100 flex justify-between items-center group" onClick={() => setIsMenuOpen(false)}>
                 Home <Globe size={16} className="text-brand-green opacity-0 group-hover:opacity-100 transition-all" />
