@@ -8,7 +8,7 @@ export interface LinearTrait {
 export interface Bull {
   id: string;
   name: string;
-  fullName?: string; // Added for official names like WAKE-UP SATELLITE
+  fullName?: string;
   regNo: string;
   naab: string;
   dob: string;
@@ -20,6 +20,7 @@ export interface Bull {
   image: string;
   badges: string[];
   description: string;
+  published?: boolean;
   
   stats: {
     gtpi: number;

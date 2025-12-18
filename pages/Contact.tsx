@@ -104,7 +104,7 @@ const Contact: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-bold text-gray-900 text-sm sm:text-base"
+                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-bold text-black text-sm sm:text-base"
                     placeholder="Enter full name"
                   />
                 </div>
@@ -117,7 +117,7 @@ const Contact: React.FC = () => {
                     required
                     value={formData.mobile}
                     onChange={handleChange}
-                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-mono font-bold text-gray-900 text-sm sm:text-base"
+                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-mono font-bold text-black text-sm sm:text-base"
                     placeholder="+91 Mobile Number"
                   />
                 </div>
@@ -130,7 +130,7 @@ const Contact: React.FC = () => {
                     required
                     value={formData.location}
                     onChange={handleChange}
-                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-bold text-gray-900 text-sm sm:text-base"
+                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-bold text-black text-sm sm:text-base"
                     placeholder="City / District / State"
                   />
                 </div>
@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
                     name="requirement"
                     value={formData.requirement}
                     onChange={handleChange}
-                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-black uppercase text-[10px] tracking-widest appearance-none cursor-pointer"
+                    className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-black uppercase text-[10px] tracking-widest appearance-none cursor-pointer text-black"
                   >
                     <option value="Milk">Elite Production (Milk)</option>
                     <option value="Udder">Confirmation Specialist (Udders)</option>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, 
   Award, Zap, ChevronRight, Binary, Globe2, 
-  Dna, Microscope, ArrowUpRight, BarChart3, Database
+  Dna, Microscope, ArrowUpRight, BarChart3, Database, Lock
 } from 'lucide-react';
 import BullCard from '../components/BullCard';
 import { BULLS } from '../constants';
@@ -56,10 +56,10 @@ const Home: React.FC = () => {
                   Explore Portfolio <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                 </Link>
                 <Link 
-                  to="/about" 
-                  className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs transition-all flex items-center justify-center hover:border-white/40 active:scale-95"
+                  to="/admin/login" 
+                  className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs transition-all flex items-center justify-center hover:border-white/40 active:scale-95 gap-3"
                 >
-                  Our Philosophy
+                  <Lock size={14} /> Admin Login
                 </Link>
               </div>
 
@@ -272,10 +272,10 @@ const Home: React.FC = () => {
               "Successful breeding isn't a gamble—it's a calculated strategy with Elite Genetics LTD."
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10">
-              <Link to="/contact" className="bg-brand-green hover:bg-brand-darkGreen text-white px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[11px] sm:text-[13px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] transition-all hover:scale-105 active:scale-95">
+              <Link to="/contact" className="bg-brand-green hover:bg-brand-darkGreen text-white px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[13px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] transition-all hover:scale-105 active:scale-95">
                   Secure Your Inventory
               </Link>
-              <Link to="/pricing" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[11px] sm:text-[13px] backdrop-blur-2xl transition-all hover:border-white/40 active:scale-95">
+              <Link to="/pricing" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[13px] backdrop-blur-2xl transition-all hover:border-white/40 active:scale-95">
                   View Price Index
               </Link>
             </div>

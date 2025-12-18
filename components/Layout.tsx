@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Mail, MapPin, Globe, Dna } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Globe, Dna, Lock } from 'lucide-react';
 import { COMPANY_INFO } from '../constants';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -32,9 +32,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Mail size={12} className="text-brand-green" /> {COMPANY_INFO.email}
             </a>
           </div>
-          <div className="flex items-center gap-3">
-            <Globe size={12} className="text-white/60" />
-            <span className="text-white/60">Global Genetics Center</span>
+          <div className="flex items-center gap-6">
+            <Link to="/admin/login" className="flex items-center gap-2 text-white/40 hover:text-brand-green transition-colors">
+              <Lock size={10} /> Staff Portal
+            </Link>
+            <div className="flex items-center gap-3">
+              <Globe size={12} className="text-white/60" />
+              <span className="text-white/60">Global Genetics Center</span>
+            </div>
           </div>
         </div>
       </div>
@@ -97,6 +102,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Link to="/pricing" className="text-gray-900 font-black uppercase tracking-[0.3em] text-[13px] sm:text-[14px] py-4 sm:py-5 border-b border-gray-100 flex justify-between items-center group" onClick={() => setIsMenuOpen(false)}>
                 Pricing <Globe size={16} className="text-brand-green opacity-0 group-hover:opacity-100 transition-all" />
               </Link>
+              <Link to="/admin/login" className="text-gray-400 font-black uppercase tracking-[0.3em] text-[10px] py-4 border-b border-gray-100 flex items-center gap-2" onClick={() => setIsMenuOpen(false)}>
+                <Lock size={12} /> Staff Login
+              </Link>
               <Link to="/contact" className="bg-brand-blue text-center text-white font-black uppercase tracking-[0.3em] text-[13px] sm:text-[14px] py-5 sm:py-6 rounded-2xl mt-6 shadow-xl" onClick={() => setIsMenuOpen(false)}>
                 Contact Us
               </Link>
@@ -139,6 +147,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <li><Link to="/pricing" className="hover:text-brand-green transition-all">Pricing</Link></li>
                 <li><Link to="/about" className="hover:text-brand-green transition-all">About</Link></li>
                 <li><Link to="/contact" className="hover:text-brand-green transition-all">Genetic Consultation</Link></li>
+                <li><Link to="/admin/login" className="text-white/20 hover:text-brand-green transition-all flex items-center gap-2 pt-4">
+                  <Lock size={12} /> Admin Dashboard
+                </Link></li>
               </ul>
             </div>
             <div className="md:col-span-4">

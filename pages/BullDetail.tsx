@@ -1,5 +1,3 @@
-
-// Add missing Target icon import from lucide-react
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
@@ -8,11 +6,12 @@ import {
   ClipboardCheck, ChevronRight, BarChart4, Facebook, Twitter, Linkedin,
   FileText, Activity as HealthIcon, Target
 } from 'lucide-react';
-import { BULLS } from '../constants';
+import { useBulls } from '../context/BullContext';
 
 const BullDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const bull = BULLS.find(b => b.id === id);
+  const { getBull } = useBulls();
+  const bull = getBull(id || '');
 
   if (!bull) {
     return (

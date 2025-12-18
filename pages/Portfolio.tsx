@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { Filter, Search, Grid, List } from 'lucide-react';
 import BullCard from '../components/BullCard';
-import { BULLS } from '../constants';
+import { useBulls } from '../context/BullContext';
 
 const Portfolio: React.FC = () => {
+  const { bulls } = useBulls();
   const [filter, setFilter] = useState<string>('All');
+
+  // Only show published bulls in public portfolio
+  const liveBulls = bulls.filter(b => b.published !== false);
 
   const categories = ['All', 'A2A2', 'Daughter Proven', 'High Milk', 'Type Specialist', 'Polled'];
 
   const filteredBulls = filter === 'All' 
-    ? BULLS 
-    : BULLS.filter(bull => bull.badges.some(b => b.includes(filter)));
+    ? liveBulls 
+    : liveBulls.filter(bull => bull.badges.some(b => b.includes(filter)));
 
   return (
     <div className="bg-white min-h-screen">
