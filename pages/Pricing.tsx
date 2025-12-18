@@ -1,68 +1,99 @@
 import React from 'react';
 import { PRICING_LIST } from '../constants';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, FileText, Download, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Pricing: React.FC = () => {
   return (
-    <div className="bg-white min-h-screen pt-12 pb-24">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-display font-bold text-gray-900 mb-4">Pricing & Availability</h1>
-            <p className="text-gray-600 text-lg">Transparent pricing for premium genetics.</p>
-          </div>
+    <div className="bg-white min-h-screen">
+      {/* Header */}
+      <section className="bg-slate-50 py-24 border-b border-slate-100">
+        <div className="container mx-auto px-6 text-center">
+          <span className="text-brand-blue font-black tracking-[0.6em] uppercase text-[10px] mb-6 block">Transparent Value</span>
+          <h1 className="text-5xl md:text-7xl font-display font-black text-brand-black mb-8 tracking-tighter uppercase italic">
+            Price <span className="text-brand-green">Index</span>
+          </h1>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto font-medium">
+            Strategic pricing for elite-tier genomic straws. Updated for the August 2025 genetic evaluation cycle.
+          </p>
+        </div>
+      </section>
 
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden mb-12">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-brand-darkBlue text-white">
-                    <th className="p-4 md:p-6 font-bold text-lg">Bull Name</th>
-                    <th className="p-4 md:p-6 font-bold text-lg text-right">Conventional (₹)</th>
-                    <th className="p-4 md:p-6 font-bold text-lg text-right">Sexed (₹)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {PRICING_LIST.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-blue-50 transition-colors">
-                      <td className="p-4 md:p-6 font-bold text-gray-900">{item.bullName}</td>
-                      <td className="p-4 md:p-6 text-right text-gray-700 font-mono">
-                        {item.conventional.toLocaleString()}
-                      </td>
-                      <td className="p-4 md:p-6 text-right font-mono font-medium">
-                        {item.sexed ? (
-                          <span className="text-pink-600">{item.sexed.toLocaleString()}</span>
-                        ) : (
-                          <span className="text-gray-300">-</span>
-                        )}
-                      </td>
+      {/* Pricing Table Section */}
+      <section className="py-32">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-white rounded-[4rem] shadow-[0_60px_100px_-30px_rgba(0,113,188,0.1)] border border-slate-100 overflow-hidden mb-20">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-brand-black text-white">
+                      <th className="px-12 py-10 font-display font-black text-xs uppercase tracking-[0.3em]">Sire Name</th>
+                      <th className="px-12 py-10 font-display font-black text-xs uppercase tracking-[0.3em] text-right">Conventional (₹)</th>
+                      <th className="px-12 py-10 font-display font-black text-xs uppercase tracking-[0.3em] text-right">Sexed Ultra 4M (₹)</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-50">
+                    {PRICING_LIST.map((item, idx) => (
+                      <tr key={idx} className="hover:bg-brand-blue/[0.02] transition-colors group">
+                        <td className="px-12 py-8">
+                          <span className="text-2xl font-display font-black text-brand-black group-hover:text-brand-blue transition-colors uppercase italic">{item.bullName}</span>
+                          <div className="flex gap-2 mt-2">
+                             <div className="h-1 w-8 bg-brand-green rounded-full opacity-40"></div>
+                          </div>
+                        </td>
+                        <td className="px-12 py-8 text-right">
+                          <span className="text-2xl font-mono font-bold text-gray-900">₹{item.conventional.toLocaleString()}</span>
+                        </td>
+                        <td className="px-12 py-8 text-right">
+                          {item.sexed ? (
+                            <span className="text-2xl font-mono font-bold text-brand-green">₹{item.sexed.toLocaleString()}</span>
+                          ) : (
+                            <span className="text-gray-300 font-bold uppercase text-[10px] tracking-widest">N/A</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
 
-          <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 flex items-start gap-4">
-            <AlertCircle className="text-brand-blue flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-bold text-brand-darkBlue mb-2">Terms & Conditions</h3>
-              <ul className="list-disc list-inside text-gray-700 space-y-1 text-sm">
-                <li>Pricing is subject to change without prior notice.</li>
-                <li><strong>INAPH Tag ID</strong> is mandatory for the sale of semen.</li>
-                <li>Semen straws once sold will be considered as the final sale; no returns or exchanges unless damaged on delivery.</li>
-              </ul>
+            {/* Compliance Info */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div className="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-10 opacity-10">
+                  <AlertCircle size={100} />
+                </div>
+                <h3 className="text-2xl font-display font-black mb-8 uppercase tracking-tight flex items-center gap-4 italic">
+                  <span className="w-10 h-1 bg-brand-green"></span> Compliance Requirements
+                </h3>
+                <ul className="space-y-6">
+                  {[
+                    "Valid INAPH Tag ID is mandatory for all sales.",
+                    "Semen is delivered via strict nitrogen cold chain.",
+                    "Volume discounts available for verified herd programs.",
+                    "Returns are not accepted once the seal is broken."
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-5 text-gray-400 font-medium">
+                      <CheckCircle size={20} className="text-brand-green flex-shrink-0 mt-1" />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-brand-blue/5 rounded-[3rem] p-12 border border-brand-blue/10 flex flex-col justify-center text-center">
+                 <h3 className="text-3xl font-display font-black text-brand-black mb-6 uppercase tracking-tight">Need a Formal Quote?</h3>
+                 <p className="text-gray-500 mb-10 font-medium leading-relaxed">Our specialists can provide a customized genetic roadmap and volume-based pricing for your farm operation.</p>
+                 <Link to="/contact" className="bg-brand-blue hover:bg-brand-darkBlue text-white px-12 py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] transition-all shadow-xl hover:scale-105 inline-block">
+                   Request Official Invoice
+                 </Link>
+              </div>
             </div>
-          </div>
-          
-          <div className="mt-8 text-center">
-             <Link to="/contact" className="inline-block bg-brand-green hover:bg-brand-darkGreen text-white px-8 py-3 rounded-lg font-bold shadow-md transition-all">
-                Place an Order
-             </Link>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

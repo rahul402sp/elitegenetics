@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Globe, ChevronRight } from 'lucide-react';
 import { COMPANY_INFO } from '../constants';
 
 const Contact: React.FC = () => {
@@ -12,7 +12,7 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for your enquiry! We will contact you shortly.');
+    alert('Strategic Enquiry Received. An Elite Genetics representative will contact you within 24 business hours.');
     setFormData({ name: '', mobile: '', location: '', requirement: 'Milk' });
   };
 
@@ -21,137 +21,146 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen py-16">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-display font-bold text-gray-900 mb-4">Get in Touch</h1>
-          <p className="text-gray-600">Have questions about our bulls or pricing? We are here to help.</p>
+    <div className="bg-white min-h-screen">
+      {/* Contact Hero */}
+      <section className="bg-brand-black py-24 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-full h-full opacity-5">
+           <Globe size={800} className="absolute -bottom-40 -right-40 text-brand-blue animate-pulse-slow" />
         </div>
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <span className="text-brand-green font-black tracking-[0.6em] uppercase text-[10px] mb-6 block">Direct Conduit</span>
+          <h1 className="text-5xl md:text-8xl font-display font-black text-white mb-8 tracking-tighter uppercase italic">
+            Get in <span className="text-brand-blue">Touch.</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-medium">
+            Contact our genetic consultants to optimize your herd's potential.
+          </p>
+        </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Contact Info Card */}
-          <div className="bg-brand-darkBlue text-white rounded-2xl p-10 shadow-xl flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-bold mb-8">Contact Information</h2>
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="bg-white/10 p-3 rounded-lg">
-                    <MapPin size={24} className="text-brand-green" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Our Office</h3>
-                    <p className="text-blue-100 leading-relaxed">{COMPANY_INFO.address}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-white/10 p-3 rounded-lg">
-                    <Phone size={24} className="text-brand-green" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Phone</h3>
-                    <p className="text-blue-100">{COMPANY_INFO.phone}</p>
-                    <p className="text-sm text-blue-300 mt-1">Contact: {COMPANY_INFO.contactPerson}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-white/10 p-3 rounded-lg">
-                    <Mail size={24} className="text-brand-green" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Email</h3>
-                    <p className="text-blue-100">{COMPANY_INFO.email}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <section className="py-32">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 max-w-7xl mx-auto items-start">
             
-            <div className="mt-12 pt-8 border-t border-white/10">
-                <p className="text-sm text-blue-200">
-                    Office Hours: Mon-Sat, 9:00 AM - 6:00 PM
-                </p>
+            {/* Contact Details */}
+            <div className="space-y-16">
+              <div>
+                <h2 className="text-4xl font-display font-black text-brand-black mb-12 uppercase tracking-tighter italic">Headquarters</h2>
+                <div className="space-y-12">
+                  <div className="flex gap-8 group">
+                    <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-all shadow-sm">
+                      <MapPin size={28} />
+                    </div>
+                    <div>
+                      <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-3">Principal Address</h3>
+                      <p className="text-xl font-bold text-gray-900 leading-relaxed max-w-xs">{COMPANY_INFO.address}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-8 group">
+                    <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-all shadow-sm">
+                      <Phone size={28} />
+                    </div>
+                    <div>
+                      <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-3">Direct Hotline</h3>
+                      <p className="text-2xl font-mono font-black text-gray-900">{COMPANY_INFO.phone}</p>
+                      <p className="text-brand-blue font-black uppercase text-[10px] mt-1 tracking-widest">Attn: {COMPANY_INFO.contactPerson}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-8 group">
+                    <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-brand-black group-hover:bg-brand-blue group-hover:text-white transition-all shadow-sm">
+                      <Mail size={28} />
+                    </div>
+                    <div>
+                      <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-3">Corporate Email</h3>
+                      <p className="text-xl font-bold text-gray-900">{COMPANY_INFO.email}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Service Areas */}
+              <div className="bg-slate-900 p-12 rounded-[3.5rem] text-white">
+                 <h4 className="text-lg font-display font-black uppercase tracking-[0.2em] mb-8 text-brand-green italic">Operational Logistics</h4>
+                 <div className="grid grid-cols-2 gap-6 text-[11px] font-black uppercase tracking-widest text-gray-500">
+                    <div className="flex items-center gap-3"><ChevronRight size={14} className="text-brand-green" /> National Distribution</div>
+                    <div className="flex items-center gap-3"><ChevronRight size={14} className="text-brand-green" /> Global Cold Chain</div>
+                    <div className="flex items-center gap-3"><ChevronRight size={14} className="text-brand-green" /> Certified Handling</div>
+                    <div className="flex items-center gap-3"><ChevronRight size={14} className="text-brand-green" /> Expert Sourcing</div>
+                 </div>
+              </div>
             </div>
-          </div>
 
-          {/* Form */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send an Enquiry</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
-                  placeholder="John Doe"
-                />
-              </div>
+            {/* Form */}
+            <div className="bg-white rounded-[4rem] p-12 lg:p-20 shadow-[0_80px_120px_-40px_rgba(0,113,188,0.15)] border border-slate-100">
+              <h2 className="text-3xl font-display font-black text-brand-black mb-12 uppercase tracking-tight italic">Submit Strategic Enquiry</h2>
+              <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Full Identity</label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-bold text-gray-900"
+                    placeholder="Enter full name"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
-                <input
-                  type="tel"
-                  id="mobile"
-                  name="mobile"
-                  required
-                  value={formData.mobile}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
-                  placeholder="+91 98765 43210"
-                />
-              </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Communication Line</label>
+                  <input
+                    type="tel"
+                    name="mobile"
+                    required
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-mono font-bold text-gray-900"
+                    placeholder="+91 Mobile Number"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">Farm Location / City</label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  required
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
-                  placeholder="e.g. Ludhiana"
-                />
-              </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Geographic Location</label>
+                  <input
+                    type="text"
+                    name="location"
+                    required
+                    value={formData.location}
+                    onChange={handleChange}
+                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-bold text-gray-900"
+                    placeholder="City / District / State"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="requirement" className="block text-sm font-medium text-gray-700 mb-2">Primary Requirement</label>
-                <div className="relative">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Breeding Priority</label>
                   <select
-                    id="requirement"
                     name="requirement"
                     value={formData.requirement}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all appearance-none bg-white"
+                    className="w-full px-8 py-5 rounded-[1.5rem] bg-slate-50 border border-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all font-black uppercase text-[10px] tracking-widest appearance-none cursor-pointer"
                   >
-                    <option value="Milk">High Milk Yield</option>
-                    <option value="Udder">Udder Health & Conformation</option>
-                    <option value="A2A2">A2A2 Genetics</option>
-                    <option value="Sexed">Sexed Semen</option>
-                    <option value="Other">General Enquiry</option>
+                    <option value="Milk">Elite Production (Milk)</option>
+                    <option value="Udder">Confirmation Specialist (Udders)</option>
+                    <option value="A2A2">Genetic Profile (A2A2)</option>
+                    <option value="Sexed">Technology Choice (Sexed)</option>
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                  </div>
                 </div>
-              </div>
 
-              <button
-                type="submit"
-                className="w-full bg-brand-green hover:bg-brand-darkGreen text-white font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg mt-4"
-              >
-                Send Message <Send size={18} />
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  className="w-full bg-brand-green hover:bg-brand-darkGreen text-white font-black py-7 rounded-[2rem] transition-all flex items-center justify-center gap-4 shadow-xl shadow-brand-green/20 uppercase tracking-[0.4em] text-[11px] active:scale-95 group"
+                >
+                  Authorize Transmission <Send size={20} className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

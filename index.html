@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elite Genetics LTD - World Class Holstein Genetics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -16,11 +16,22 @@
             },
             colors: {
               brand: {
-                blue: '#0071bc', /* Updated from logo */
-                darkBlue: '#004a80',
-                green: '#8cc63f', /* Updated from logo */
-                darkGreen: '#6aa329',
+                blue: '#005b96', // Deeper Blue (Added black to original #0071bc)
+                darkBlue: '#00406b',
+                green: '#8cc63f', // Keeping original green for vibrant contrast
+                darkGreen: '#7ab52f',
+                black: '#0f172a', // Rich Midnight Blue-Black (Deepened from previous #3982D9)
                 gray: '#f8f9fa',
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 8s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0) rotate(0)' },
+                '50%': { transform: 'translateY(-20px) rotate(1deg)' },
               }
             }
           }
@@ -28,7 +39,6 @@
       }
     </script>
     <style>
-      /* Custom Scrollbar for nicer aesthetics */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -36,11 +46,16 @@
         background: #f1f1f1;
       }
       ::-webkit-scrollbar-thumb {
-        background: #888;
+        background: #8cc63f;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: #005b96;
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #ffffff;
       }
     </style>
   <script type="importmap">

@@ -22,8 +22,8 @@ export const BULLS: Bull[] = [
     aaa: "234156",
     geneticCodes: "TCTD TLTP TRTV TY HMW1",
     image: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?q=80&w=2670&auto=format&fit=crop", 
-    badges: ["GTPI +3301", "NM$ +840", "A2A2", "BB"],
-    description: "SATELLITE is an elite genomic powerhouse with a GTPI of +3301. He ranks exceptionally high for Net Merit ($840) and Dairy Wellness Profit ($984). Combining positive components, extreme productive life (+3.5), and solid udder composite (+1.18), he is a premier choice for progressive dairy enterprises.",
+    badges: ["GTPI +3301", "NM$ +840", "A2A2", "BB", "SEXED SEMEN"],
+    description: "SATELLITE (Wake-Up Satellite) is an elite genomic powerhouse. Ranking among the top of the Holstein breed with a GTPI of +3301 and Net Merit of +840, he excels in Dairy Wellness Profit (+984) and Cheese Merit (+889). He offers exceptional health traits including a Productive Life of +3.5 and a Mastitis Index of +1.9, combined with positive component percentages (+0.28% Fat, +0.12% Protein).",
     stats: {
       gtpi: 3301,
       milk: 367,
@@ -37,11 +37,11 @@ export const BULLS: Bull[] = [
       flc: -0.07
     },
     traits: [
-      { trait: 'Milk', value: 60, fullMark: 100 },
-      { trait: 'Fat', value: 90, fullMark: 100 },
-      { trait: 'Protein', value: 70, fullMark: 100 },
-      { trait: 'Udder', value: 75, fullMark: 100 },
-      { trait: 'Prod Life', value: 95, fullMark: 100 },
+      { trait: 'Milk', value: 65, fullMark: 100 },
+      { trait: 'Fat', value: 92, fullMark: 100 },
+      { trait: 'Protein', value: 78, fullMark: 100 },
+      { trait: 'Udder', value: 85, fullMark: 100 },
+      { trait: 'Prod Life', value: 96, fullMark: 100 },
     ],
     pedigree: {
       sire: "Dg SPACE",
