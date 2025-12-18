@@ -8,19 +8,19 @@ export interface LinearTrait {
 export interface Bull {
   id: string;
   name: string;
+  fullName?: string; // Added for official names like WAKE-UP SATELLITE
   regNo: string;
   naab: string;
   dob: string;
   betaCasein: string;
   kappaCasein: string;
-  aaa?: string; // Added
-  geneticCodes?: string; // Added (e.g. TC TD TL...)
+  aaa?: string;
+  geneticCodes?: string;
   code: string;
   image: string;
   badges: string[];
   description: string;
   
-  // Basic stats for cards
   stats: {
     gtpi: number;
     milk: number;
@@ -34,7 +34,6 @@ export interface Bull {
     flc?: number;
   };
 
-  // Legacy radar chart traits
   traits: {
     trait: string;
     value: number;
@@ -47,7 +46,6 @@ export interface Bull {
     mgs: string;
   };
   
-  // New Extended Fields
   extendedPedigree?: {
     sire: string;
     dam: string;
@@ -59,6 +57,9 @@ export interface Bull {
 
   evaluations?: {
     production: {
+      reliability: number;
+      dtrs: number;
+      herds: number;
       milk: number;
       fatPct: number;
       fat: number;
@@ -72,6 +73,7 @@ export interface Bull {
       gm: number;
     };
     type: {
+      reliability: number;
       ptat: number;
       udc: number;
       flc: number;

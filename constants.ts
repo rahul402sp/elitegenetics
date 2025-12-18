@@ -12,6 +12,7 @@ export const BULLS: Bull[] = [
   {
     id: "satellite",
     name: "SATELLITE",
+    fullName: "WAKE-UP SATELLITE",
     regNo: "HO840003268504164",
     naab: "515HO00575",
     code: "515HO00575",
@@ -21,8 +22,8 @@ export const BULLS: Bull[] = [
     aaa: "234156",
     geneticCodes: "TCTD TLTP TRTV TY HMW1",
     image: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?q=80&w=2670&auto=format&fit=crop", 
-    badges: ["A2A2", "BB", "High GTPI", "NM$ +840"],
-    description: "SATELLITE is a powerhouse GTPI sire (+3301) with excellent Net Merit ($840). He combines solid milk production with strong health traits and exceptional productive life (+3.5).",
+    badges: ["GTPI +3301", "NM$ +840", "A2A2", "BB"],
+    description: "SATELLITE is an elite genomic powerhouse with a GTPI of +3301. He ranks exceptionally high for Net Merit ($840) and Dairy Wellness Profit ($984). Combining positive components, extreme productive life (+3.5), and solid udder composite (+1.18), he is a premier choice for progressive dairy enterprises.",
     stats: {
       gtpi: 3301,
       milk: 367,
@@ -57,6 +58,9 @@ export const BULLS: Bull[] = [
     },
     evaluations: {
       production: {
+        reliability: 79,
+        dtrs: 0,
+        herds: 0,
         milk: 367,
         fatPct: 0.28,
         fat: 91,
@@ -70,6 +74,7 @@ export const BULLS: Bull[] = [
         gm: 816
       },
       type: {
+        reliability: 78,
         ptat: 0.71,
         udc: 1.18,
         flc: -0.07,
