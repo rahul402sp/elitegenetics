@@ -211,12 +211,16 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="bg-slate-50 rounded-[3rem] sm:rounded-[6rem] p-10 sm:p-16 lg:p-32 flex flex-col lg:flex-row items-center gap-16 lg:gap-28 border border-slate-100 hover:shadow-2xl transition-all duration-[1.5s]">
             <div className="lg:w-3/5 text-center lg:text-left">
-              <h2 className="text-4xl sm:text-5xl lg:text-7xl font-display font-black text-gray-900 tracking-tighter uppercase mb-8 sm:mb-12 leading-[0.95]">
-                Strategic Alliance: <br />
-                <span className="text-brand-black">AITotal Global</span>
-              </h2>
+              <span className="text-brand-blue font-black tracking-[0.5em] uppercase text-[10px] sm:text-[11px] mb-10 block">Strategic Alliance</span>
+              <div className="mb-14 flex justify-center lg:justify-start">
+                <img 
+                  src="https://aitotal.nl/assets/logo.svg" 
+                  alt="AITotal" 
+                  className="h-14 sm:h-20 md:h-28 w-auto object-contain drop-shadow-sm"
+                />
+              </div>
               <p className="text-xl sm:text-2xl text-gray-600 mb-10 sm:mb-16 leading-relaxed font-bold italic opacity-80">
-                Our exclusive partnership with AITotal Global delivers the world's most productive genetics to the Indian landscape. 
+                Our exclusive partnership delivers the world's most productive genetics to the Indian landscape. 
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
                 {[
@@ -234,21 +238,11 @@ const Home: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="lg:w-2/5 flex flex-col items-center justify-center opacity-70 hover:opacity-100 transition-all duration-1000">
+            <div className="lg:w-2/5 flex flex-col items-center justify-center transition-all duration-1000 p-8">
               <img 
                 src="https://aitotal.nl/assets/logo.svg" 
-                alt="AITotal Logo" 
-                className="max-w-[280px] sm:max-w-[400px] w-full mb-6 sm:mb-8 grayscale hover:grayscale-0 transition-all"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const parent = e.currentTarget.parentElement;
-                  if (parent) {
-                    const fallback = document.createElement('div');
-                    fallback.className = 'text-4xl sm:text-6xl font-display font-black text-brand-black tracking-tighter uppercase text-center';
-                    fallback.innerHTML = 'AITOTAL<br/><span class="text-brand-green text-xl sm:text-3xl tracking-[0.5em]">GLOBAL</span>';
-                    parent.appendChild(fallback);
-                  }
-                }}
+                alt="AITotal" 
+                className="max-w-[280px] sm:max-w-[420px] w-full mb-6 sm:mb-8 grayscale hover:grayscale-0 transition-all drop-shadow-md"
               />
               <span className="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] sm:tracking-[0.4em]">Official Distribution Partner</span>
             </div>

@@ -46,10 +46,9 @@ const About: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-black/20 via-transparent to-transparent opacity-30"></div>
               </div>
 
-              {/* Decorative Floating Label */}
-              <div className="absolute -bottom-6 -left-6 sm:-bottom-10 sm:-left-10 bg-brand-black p-8 sm:p-12 rounded-[2rem] sm:rounded-[3rem] shadow-2xl z-20 hidden md:block group-hover:rotate-3 transition-transform duration-500 border border-white/10">
-                  <div className="text-brand-green font-display font-black text-3xl italic leading-none">AITOTAL</div>
-                  <div className="text-white font-black uppercase text-[10px] tracking-widest mt-2 text-center opacity-60">Sole Distributor</div>
+              {/* Decorative Floating Label - Pure Logo */}
+              <div className="absolute -bottom-6 -left-6 sm:-bottom-10 sm:-left-10 bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl z-20 hidden md:block group-hover:rotate-3 transition-transform duration-500 border border-slate-100">
+                  <img src="https://aitotal.nl/assets/logo.svg" alt="AITotal Logo" className="h-10 sm:h-14 w-auto object-contain" />
               </div>
             </div>
             
@@ -74,9 +73,8 @@ const About: React.FC = () => {
                   <span className="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Established</span>
                   <span className="text-2xl sm:text-4xl font-display font-black text-brand-black block">2024</span>
                 </div>
-                <div className="bg-slate-50 p-6 sm:p-8 rounded-2xl sm:rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-xl transition-all text-center">
-                  <span className="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Global Partner</span>
-                  <span className="text-2xl sm:text-4xl font-display font-black text-brand-black block">AITOTAL</span>
+                <div className="bg-slate-50 p-6 sm:p-8 rounded-2xl sm:rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-xl transition-all text-center flex items-center justify-center">
+                  <img src="https://aitotal.nl/assets/logo.svg" alt="AITotal" className="h-8 sm:h-12 w-auto object-contain" />
                 </div>
               </div>
             </div>
@@ -176,45 +174,35 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Global Partnership Display */}
+      {/* Global Partnership Display - Pure Logo Focus */}
       <section className="py-24 sm:py-40 bg-slate-50 px-4">
         <div className="container mx-auto text-center">
           <span className="text-brand-blue font-black tracking-[0.5em] uppercase text-[10px] sm:text-[11px] mb-8 block">Our Strategic Partner</span>
-          <h2 className="text-4xl sm:text-5xl font-display font-black text-brand-black mb-16 uppercase tracking-tighter italic">World-Class <span className="text-brand-green">AITOTAL</span> Distribution</h2>
+          
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col items-center gap-10 bg-white p-12 sm:p-20 rounded-[4rem] shadow-xl border border-white relative group">
               <div className="absolute inset-0 bg-brand-green opacity-0 group-hover:opacity-[0.02] transition-opacity duration-700 pointer-events-none rounded-[4rem]"></div>
               
-              {/* Fix AITotal Logo Display */}
-              <div className="flex items-center justify-center min-h-[140px] w-full max-w-[400px]">
+              {/* Strategic AITotal Logo Display - Large and Clear */}
+              <div className="flex items-center justify-center min-h-[120px] w-full max-w-[500px] overflow-hidden p-6">
                 <img 
                   src="https://aitotal.nl/assets/logo.svg" 
-                  alt="AITotal Logo" 
-                  className="w-full h-auto max-h-32 object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const parent = e.currentTarget.parentElement;
-                    if (parent) {
-                      const fallback = document.createElement('div');
-                      fallback.className = 'text-5xl sm:text-7xl font-display font-black text-brand-black tracking-tighter uppercase text-center flex flex-col items-center';
-                      fallback.innerHTML = 'AITOTAL<span class="text-brand-green text-xl sm:text-2xl tracking-[0.6em] mt-2">GLOBAL</span>';
-                      parent.appendChild(fallback);
-                    }
-                  }}
+                  alt="AITotal" 
+                  className="w-full h-auto max-h-48 object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
-              <div className="h-1.5 w-32 bg-brand-green rounded-full"></div>
+              <div className="h-1.5 w-32 bg-brand-green rounded-full shadow-sm"></div>
               <p className="text-lg sm:text-2xl text-gray-500 font-bold leading-relaxed max-w-2xl italic">
                 "AITotal is a globally respected supplier of high-quality bovine semen. As their exclusive distributor in India, we ensure that every straw delivered to your farm maintains the highest genetic integrity."
               </p>
               
               <div className="flex gap-4 sm:gap-8 flex-wrap justify-center mt-6">
-                <div className="flex items-center gap-3 bg-slate-50 px-8 py-4 rounded-2xl border border-slate-100">
+                <div className="flex items-center gap-3 bg-slate-50 px-8 py-4 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-md transition-shadow">
                   <Globe className="text-brand-blue" size={18} />
                   <span className="text-[10px] font-black uppercase tracking-widest text-brand-black">Global Lab Access</span>
                 </div>
-                <div className="flex items-center gap-3 bg-slate-50 px-8 py-4 rounded-2xl border border-slate-100">
+                <div className="flex items-center gap-3 bg-slate-50 px-8 py-4 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-md transition-shadow">
                   <ShieldCheck className="text-brand-green" size={18} />
                   <span className="text-[10px] font-black uppercase tracking-widest text-brand-black">Certified Logistics</span>
                 </div>
