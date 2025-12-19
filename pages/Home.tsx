@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, 
   Award, Zap, ChevronRight, Binary, Globe2, 
-  Dna, Microscope, ArrowUpRight, BarChart3, Database, Lock
+  Dna, Microscope, ArrowUpRight, BarChart3, Database, Lock,
+  Check
 } from 'lucide-react';
 import BullCard from '../components/BullCard';
 import { BULLS } from '../constants';
@@ -127,7 +128,7 @@ const Home: React.FC = () => {
               </h2>
             </div>
             <p className="text-gray-500 max-w-sm font-bold leading-relaxed text-lg sm:text-xl border-l-0 lg:border-l-4 border-brand-blue lg:pl-8">
-              Elite Genetics LTD. bridges the gap between global innovation and practical, high-profit dairy performance.
+              Elite Genetics Ltd. bridges the gap between global innovation and practical, high-profit dairy performance.
             </p>
           </div>
 
@@ -206,46 +207,50 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Section 4: Strategic Partner Spotlight --- */}
-      <section className="py-24 sm:py-32 lg:py-48 bg-white">
+      {/* --- Section 4: Strategic Partner Spotlight - MATCHING SCREENSHOT --- */}
+      <section className="py-24 sm:py-32 lg:py-48 bg-white overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="bg-slate-50 rounded-[3rem] sm:rounded-[6rem] p-10 sm:p-16 lg:p-32 flex flex-col lg:flex-row items-center gap-16 lg:gap-28 border border-slate-100 hover:shadow-2xl transition-all duration-[1.5s]">
-            <div className="lg:w-3/5 text-center lg:text-left">
-              <span className="text-brand-blue font-black tracking-[0.5em] uppercase text-[10px] sm:text-[11px] mb-10 block">Strategic Alliance</span>
-              <div className="mb-14 flex justify-center lg:justify-start">
-                <img 
-                  src="https://aitotal.nl/assets/logo.svg" 
-                  alt="AITotal" 
-                  className="h-14 sm:h-20 md:h-28 w-auto object-contain drop-shadow-sm"
-                />
-              </div>
-              <p className="text-xl sm:text-2xl text-gray-600 mb-10 sm:mb-16 leading-relaxed font-bold italic opacity-80">
+          <div className="bg-[#fcfdfe] rounded-[3rem] sm:rounded-[6rem] p-10 sm:p-20 lg:p-32 relative border border-slate-100/50 shadow-sm flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            
+            <div className="lg:w-3/5">
+              <span className="text-[#005b96] font-black tracking-[0.4em] uppercase text-[11px] mb-20 block">Strategic Alliance</span>
+              
+              <p className="text-xl sm:text-2xl md:text-3xl text-gray-500 mb-20 leading-relaxed font-bold italic max-w-xl">
                 Our exclusive partnership delivers the world's most productive genetics to the Indian landscape. 
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-16">
                 {[
                   "Fresh Imported Stock",
                   "Certified Reliability",
                   "Premium Cold Chain",
                   "Expert Genetic Consultation"
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 sm:gap-6 group justify-center lg:justify-start">
-                     <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brand-black text-white rounded-2xl sm:rounded-3xl flex items-center justify-center transition-all group-hover:rotate-12 group-hover:scale-110 shadow-lg shadow-brand-black/20">
-                       <CheckCircle2 size={24} className="sm:size-28" />
+                  <div key={i} className="flex items-center gap-6 group">
+                     <div className="w-16 h-16 bg-[#0f172a] text-white rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.15)] transition-transform group-hover:scale-110">
+                       <Check size={28} strokeWidth={3} />
                      </div>
-                     <span className="text-[12px] sm:text-[14px] font-black text-gray-900 uppercase tracking-widest text-left">{item}</span>
+                     <span className="text-[13px] sm:text-[14px] font-black text-[#0f172a] uppercase tracking-widest text-left leading-tight max-w-[140px]">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="lg:w-2/5 flex flex-col items-center justify-center transition-all duration-1000 p-8">
-              <img 
-                src="https://aitotal.nl/assets/logo.svg" 
-                alt="AITotal" 
-                className="max-w-[280px] sm:max-w-[420px] w-full mb-6 sm:mb-8 grayscale hover:grayscale-0 transition-all drop-shadow-md"
-              />
-              <span className="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] sm:tracking-[0.4em]">Official Distribution Partner</span>
+
+            <div className="lg:w-2/5 w-full flex flex-col items-center">
+              <div className="w-full aspect-[4/3] bg-white border-[3px] border-[#3982D9] rounded-xl flex flex-col items-center justify-between p-12 relative shadow-sm">
+                <div className="flex-grow flex items-center justify-center w-full">
+                  <img 
+                    src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" 
+                    alt="AITotal" 
+                    className="max-w-[85%] w-auto object-contain drop-shadow-sm"
+                  />
+                </div>
+                <div className="w-full text-left">
+                  <span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] leading-none">Official Distribution Partner</span>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -263,7 +268,7 @@ const Home: React.FC = () => {
               <span className="text-brand-green">Success.</span>
             </h2>
             <p className="text-xl sm:text-2xl md:text-4xl text-white/60 mb-16 sm:mb-24 max-w-5xl mx-auto leading-relaxed font-bold italic">
-              "Successful breeding isn't a gamble—it's a calculated strategy with Elite Genetics LTD."
+              "Successful breeding isn't a gamble—it's a calculated strategy with Elite Genetics Ltd."
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10">
               <Link to="/contact" className="bg-brand-green hover:bg-brand-darkGreen text-white px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[13px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] transition-all hover:scale-105 active:scale-95">

@@ -48,7 +48,7 @@ const About: React.FC = () => {
 
               {/* Decorative Floating Label - Pure Logo */}
               <div className="absolute -bottom-6 -left-6 sm:-bottom-10 sm:-left-10 bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl z-20 hidden md:block group-hover:rotate-3 transition-transform duration-500 border border-slate-100">
-                  <img src="https://aitotal.nl/assets/logo.svg" alt="AITotal Logo" className="h-10 sm:h-14 w-auto object-contain" />
+                  <img src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" alt="AITotal Logo" className="h-10 sm:h-14 w-auto object-contain" />
               </div>
             </div>
             
@@ -74,7 +74,7 @@ const About: React.FC = () => {
                   <span className="text-2xl sm:text-4xl font-display font-black text-brand-black block">2024</span>
                 </div>
                 <div className="bg-slate-50 p-6 sm:p-8 rounded-2xl sm:rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-xl transition-all text-center flex items-center justify-center">
-                  <img src="https://aitotal.nl/assets/logo.svg" alt="AITotal" className="h-8 sm:h-12 w-auto object-contain" />
+                  <img src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" alt="AITotal" className="h-8 sm:h-12 w-auto object-contain" />
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@ const About: React.FC = () => {
               {/* Strategic AITotal Logo Display - Large and Clear */}
               <div className="flex items-center justify-center min-h-[120px] w-full max-w-[500px] overflow-hidden p-6">
                 <img 
-                  src="https://aitotal.nl/assets/logo.svg" 
+                  src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" 
                   alt="AITotal" 
                   className="w-full h-auto max-h-48 object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-700"
                 />
