@@ -1,10 +1,12 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, 
+  ArrowRight, TrendingUp, ShieldCheck, 
   Award, Zap, ChevronRight, Binary, Globe2, 
-  Dna, Microscope, ArrowUpRight, BarChart3, Database, Lock,
-  Check, Info
+  Dna, ArrowUpRight, Database,
+  Check, Info, Globe, Shield, Activity,
+  Target
 } from 'lucide-react';
 import BullCard from '../components/BullCard';
 import { BULLS } from '../constants';
@@ -16,7 +18,7 @@ const Home: React.FC = () => {
   const featuredBulls = satelliteBull ? [satelliteBull, ...otherFeaturedBulls] : BULLS.slice(0, 3);
 
   return (
-    <div className="w-full bg-white overflow-x-hidden">
+    <div className="w-full bg-white overflow-x-hidden font-sans">
       {/* --- Section 1: The Immersive Elite Hero --- */}
       <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center bg-brand-black pt-16 md:pt-20 overflow-hidden">
         {/* Advanced Background Layers */}
@@ -207,46 +209,85 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Section 4: Strategic Partner Spotlight - MATCHING SCREENSHOT --- */}
-      <section className="py-24 sm:py-32 lg:py-48 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="bg-[#fcfdfe] rounded-[3rem] sm:rounded-[6rem] p-10 sm:p-20 lg:p-32 relative border border-slate-100/50 shadow-sm flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+      {/* --- Section 4: Strategic Alliance - REFINED PROFESSIONAL DESIGN --- */}
+      <section className="py-24 sm:py-40 lg:py-56 bg-[#f8fafc] relative overflow-hidden">
+        {/* Subtle Decorative Grid */}
+        <div className="absolute inset-0 opacity-[0.4] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#e2e8f0 1.5px, transparent 1.5px)', backgroundSize: '48px 48px' }}></div>
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white -skew-x-12 transform origin-top-right shadow-2xl"></div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-28">
             
-            <div className="lg:w-3/5">
-              <span className="text-[#005b96] font-black tracking-[0.4em] uppercase text-[11px] mb-20 block">Strategic Alliance</span>
+            {/* Left Content Column */}
+            <div className="lg:w-1/2 text-center lg:text-left">
+              <div className="inline-flex items-center gap-4 mb-8">
+                <div className="h-px w-12 bg-brand-blue/30"></div>
+                <span className="text-brand-blue font-black tracking-[0.5em] uppercase text-[11px]">Global Network</span>
+              </div>
               
-              <p className="text-xl sm:text-2xl md:text-3xl text-gray-500 mb-20 leading-relaxed font-bold italic max-w-xl">
-                Our exclusive partnership delivers the world's most productive genetics to the Indian landscape. 
+              <h2 className="text-4xl sm:text-6xl font-display font-black text-gray-900 mb-8 tracking-tighter uppercase italic leading-[1.05]">
+                Strategic <br />
+                <span className="text-brand-green">Alliance.</span>
+              </h2>
+              
+              <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed font-bold italic max-w-xl mx-auto lg:mx-0">
+                Elite Genetics bridges local expertise with world-class laboratory innovation. Through exclusive global partnerships, we deliver the future of livestock productivity directly to the Indian farm gate.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 text-left">
                 {[
-                  "Fresh Imported Stock",
-                  "Certified Reliability",
-                  "Premium Cold Chain",
-                  "Expert Genetic Consultation"
+                  { icon: Globe, title: "Exclusive Sourcing", desc: "Primary distribution for global pioneers like AITotal." },
+                  { icon: Shield, title: "Biosecurity Focus", desc: "Pharmaceutical-grade cold chain handling protocols." },
+                  { icon: Activity, title: "Proven Accuracy", desc: "Genomic profiles verified by official US and global registries." },
+                  { icon: Target, title: "Result Driven", desc: "Expert selection for maximum ROI in local climates." }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-6 group">
-                     <div className="w-16 h-16 bg-[#0f172a] text-white rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.15)] transition-transform group-hover:scale-110">
-                       <Check size={28} strokeWidth={3} />
+                  <div key={i} className="group flex flex-col gap-4">
+                     <div className="w-12 h-12 bg-brand-black text-white rounded-2xl flex items-center justify-center shadow-lg transition-all group-hover:scale-110 group-hover:bg-brand-blue group-hover:-rotate-3">
+                       <item.icon size={22} strokeWidth={2.5} />
                      </div>
-                     <span className="text-[13px] sm:text-[14px] font-black text-[#0f172a] uppercase tracking-widest text-left leading-tight max-w-[140px]">{item}</span>
+                     <div className="space-y-1">
+                        <h4 className="text-[12px] font-black text-brand-black uppercase tracking-widest">{item.title}</h4>
+                        <p className="text-[13px] text-gray-400 font-semibold leading-snug">{item.desc}</p>
+                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="lg:w-2/5 w-full flex flex-col items-center">
-              <div className="w-full aspect-[4/3] bg-white border-[3px] border-[#3982D9] rounded-xl flex flex-col items-center justify-between p-12 relative shadow-sm">
-                <div className="flex-grow flex items-center justify-center w-full">
-                  <img 
-                    src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" 
-                    alt="AITotal" 
-                    className="max-w-[85%] w-auto object-contain drop-shadow-sm"
-                  />
-                </div>
-                <div className="w-full text-left">
-                  <span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] leading-none">Official Distribution Partner</span>
+            {/* Right Visual Column - Logo Display */}
+            <div className="lg:w-1/2 w-full">
+              <div className="relative">
+                {/* Decorative Elements around Logo */}
+                <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-green/10 rounded-full blur-[80px] animate-pulse-slow"></div>
+                <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-brand-blue/10 rounded-full blur-[80px]"></div>
+
+                <div className="bg-white p-10 sm:p-20 rounded-[4rem] border border-slate-200 shadow-[0_40px_100px_-20px_rgba(15,23,42,0.08)] relative z-10 flex flex-col items-center">
+                  
+                  {/* Primary Partner Logo with Grayscale-to-Color Hover Effect */}
+                  <div className="group/logo relative w-full mb-12 flex flex-col items-center">
+                    <div className="bg-slate-50/50 w-full aspect-video rounded-3xl p-12 flex items-center justify-center border border-slate-100/50 transition-all duration-500 hover:border-brand-blue hover:bg-white group-hover/logo:shadow-2xl">
+                      <div className="transition-all duration-700 grayscale group-hover/logo:grayscale-0 filter">
+                        <img 
+                          src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" 
+                          alt="AITotal Primary Partner" 
+                          className="max-w-full h-auto object-contain max-h-[140px] transform transition-transform duration-700 scale-95 group-hover/logo:scale-105"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="mt-10 flex items-center gap-4 w-full justify-between">
+                       <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-brand-green"></div>
+                          <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Authorized Distributor</span>
+                       </div>
+                       <div className="h-px flex-grow mx-4 bg-slate-100"></div>
+                       <span className="text-[9px] font-black text-brand-blue uppercase tracking-widest">2024 Strategic Alliance</span>
+                    </div>
+                  </div>
+
+                  <p className="text-[11px] text-gray-400 font-bold uppercase tracking-[0.3em] leading-relaxed text-center italic max-w-sm">
+                    Facilitating cross-border genetic innovation and elite livestock performance since inception.
+                  </p>
                 </div>
               </div>
             </div>
@@ -271,10 +312,10 @@ const Home: React.FC = () => {
               "Successful breeding isn't a gamble—it's a calculated strategy with Elite Genetics Ltd."
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10">
-              <Link to="/contact" className="bg-brand-green hover:bg-brand-darkGreen text-white px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[13px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] transition-all hover:scale-105 active:scale-95">
+              <Link to="/contact" className="bg-brand-green hover:bg-brand-darkGreen text-white px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[14px] shadow-[0_20px_50px_-10px_rgba(140,198,63,0.3)] transition-all hover:scale-105 active:scale-95">
                   Secure Your Inventory
               </Link>
-              <Link to="/pricing" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[13px] backdrop-blur-2xl transition-all hover:border-white/40 active:scale-95">
+              <Link to="/pricing" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 px-10 sm:px-20 py-6 sm:py-8 rounded-[2.5rem] sm:rounded-[3rem] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[11px] sm:text-[14px] backdrop-blur-2xl transition-all hover:border-white/40 active:scale-95">
                   View Price Index
               </Link>
             </div>
