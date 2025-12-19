@@ -1,10 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useBulls } from '../../context/BullContext';
 import { Bull, LinearTrait } from '../../types';
-// Added Target to imports
-import { ArrowLeft, Save, ShieldCheck, Image as ImageIcon, Ruler, Activity, ListChecks, DollarSign, ChevronRight, Binary, HeartPulse, Microscope, Target } from 'lucide-react';
+import { 
+  ArrowLeft, Save, ShieldCheck, Image as ImageIcon, Ruler, 
+  Activity, DollarSign, ChevronRight, Binary, HeartPulse, 
+  Microscope, Target, Tags, LayoutDashboard, Database
+} from 'lucide-react';
 
 const BullEditor: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +15,7 @@ const BullEditor: React.FC = () => {
   const [activeTab, setActiveTab] = useState('general');
   const [isNew, setIsNew] = useState(false);
 
-  // Comprehensive default state based on SATELLITE PDF
+  // Default state representing 100% of the possible fields found in BullDetail.tsx
   const [formData, setFormData] = useState<Bull>({
     id: '',
     name: '',
@@ -21,8 +23,11 @@ const BullEditor: React.FC = () => {
     regNo: '',
     naab: '',
     dob: '',
-    betaCasein: '',
-    kappaCasein: '',
+    breed: 'Holstein Friesian',
+    weight: '',
+    age: '',
+    betaCasein: 'A2A2',
+    kappaCasein: 'BB',
     aaa: '',
     geneticCodes: '',
     code: '',
@@ -30,6 +35,7 @@ const BullEditor: React.FC = () => {
     badges: [],
     description: '',
     published: true,
+    // stats object powers the cards and hero highlights
     stats: { gtpi: 0, milk: 0, udc: 0, dpr: 0, scs: 0, ptat: 0, nm: 0, fat: 0, protein: 0, flc: 0 },
     traits: [],
     pedigree: { sire: '', dam: '', mgs: '' },
@@ -77,10 +83,10 @@ const BullEditor: React.FC = () => {
     if (id) {
       const existing = getBull(id);
       if (existing) {
-        // Deep merge to ensure all nested structures are present
         setFormData(prev => ({
           ...prev,
           ...existing,
+          stats: { ...prev.stats, ...existing.stats },
           evaluations: { ...prev.evaluations, ...existing.evaluations },
           extendedPedigree: { ...prev.extendedPedigree, ...existing.extendedPedigree },
           linearTraitsFull: existing.linearTraitsFull || prev.linearTraitsFull
@@ -143,20 +149,20 @@ const BullEditor: React.FC = () => {
       <div className="bg-brand-black text-white pt-10 pb-20 px-6 sm:px-12">
         <div className="container mx-auto">
           <Link to="/admin/dashboard" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors uppercase font-black text-[10px] tracking-widest mb-10">
-            <ArrowLeft size={14} /> Back to Dashboard
+            <ArrowLeft size={14} /> Back to Inventory
           </Link>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
             <div>
               <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tighter uppercase italic leading-none">
-                {isNew ? 'Create' : 'Manage'} <span className="text-brand-green">Sire</span>
+                {isNew ? 'New' : 'Edit'} <span className="text-brand-green">Bull Profile</span>
               </h1>
-              <p className="text-white/40 font-bold uppercase text-[10px] tracking-[0.3em] mt-3 italic">Professional Genetic Editor</p>
+              <p className="text-white/40 font-bold uppercase text-[10px] tracking-[0.3em] mt-3 italic">Data Parity Management System</p>
             </div>
             <button 
               onClick={handleSave}
               className="bg-brand-blue hover:bg-brand-darkBlue text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-2xl transition-all flex items-center gap-3 active:scale-95"
             >
-              <Save size={18} /> Update Data Records
+              <Save size={18} /> Commit Changes
             </button>
           </div>
         </div>
@@ -165,39 +171,41 @@ const BullEditor: React.FC = () => {
       <div className="container mx-auto px-4 -mt-10 mb-40">
         <form onSubmit={handleSave} className="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden">
           <div className="flex overflow-x-auto border-b border-slate-100 bg-white sticky top-0 z-20 no-scrollbar">
-            <TabButton id="general" label="ID & Image" icon={ShieldCheck} />
-            <TabButton id="pedigree" label="Lineage" icon={ChevronRight} />
-            <TabButton id="evaluations" label="Evaluations" icon={Activity} />
+            <TabButton id="general" label="Identification" icon={ShieldCheck} />
+            <TabButton id="pedigree" label="Lineage Tree" icon={ChevronRight} />
+            <TabButton id="performance" label="Performance" icon={Activity} />
             <TabButton id="functional" label="Functional" icon={HeartPulse} />
-            <TabButton id="linear" label="Linear" icon={Ruler} />
-            <TabButton id="pricing" label="Market" icon={DollarSign} />
+            <TabButton id="linear" label="Conformation" icon={Ruler} />
+            <TabButton id="dashboard" label="Card Highlights" icon={LayoutDashboard} />
+            <TabButton id="pricing" label="Market Status" icon={DollarSign} />
           </div>
 
           <div className="p-8 sm:p-14">
-            {/* General Identification */}
+            
+            {/* 1. Identification & Metadata */}
             {activeTab === 'general' && (
               <div className="space-y-12 animate-in fade-in duration-500">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <div className="space-y-8">
                     <div className="grid grid-cols-1 gap-6">
                         <div>
-                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Sire Display Name</label>
-                          <input type="text" value={formData.name} onChange={(e) => handleInputChange('name', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-black text-black text-xl uppercase italic outline-none focus:ring-4 focus:ring-brand-blue/10" required />
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Common Name</label>
+                          <input type="text" value={formData.name} onChange={(e) => handleInputChange('name', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-black text-black text-xl uppercase italic" required />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Full Official Name</label>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Official Registered Name</label>
                           <input type="text" value={formData.fullName} onChange={(e) => handleInputChange('fullName', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-black" />
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-3 gap-6">
                       <div>
                         <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">NAAB Code</label>
-                        <input type="text" value={formData.naab} onChange={(e) => handleInputChange('naab', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-mono font-bold text-black" />
+                        <input type="text" value={formData.naab} onChange={(e) => handleInputChange('naab', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-mono font-bold" />
                       </div>
-                      <div>
-                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Registration No.</label>
-                        <input type="text" value={formData.regNo} onChange={(e) => handleInputChange('regNo', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-mono font-bold text-black" />
+                      <div className="col-span-2">
+                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Reg. Number</label>
+                        <input type="text" value={formData.regNo} onChange={(e) => handleInputChange('regNo', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-mono font-bold" />
                       </div>
                     </div>
 
@@ -207,16 +215,66 @@ const BullEditor: React.FC = () => {
                         <input type="text" value={formData.dob} onChange={(e) => handleInputChange('dob', e.target.value)} placeholder="DD.MM.YYYY" className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-black" />
                       </div>
                       <div>
+                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Breed</label>
+                        <input type="text" value={formData.breed} onChange={(e) => handleInputChange('breed', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-black" />
+                      </div>
+                      <div>
                         <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">aAa Code</label>
                         <input type="text" value={formData.aaa} onChange={(e) => handleInputChange('aaa', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-black" />
                       </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Casein Lines</label>
-                        <div className="grid grid-cols-2 gap-2">
-                           <input type="text" value={formData.betaCasein} onChange={(e) => handleInputChange('betaCasein', e.target.value)} placeholder="Beta" className="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-3 font-bold text-black text-center" />
-                           <input type="text" value={formData.kappaCasein} onChange={(e) => handleInputChange('kappaCasein', e.target.value)} placeholder="Kappa" className="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-3 font-bold text-black text-center" />
-                        </div>
+                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Age</label>
+                        <input type="text" value={formData.age} onChange={(e) => handleInputChange('age', e.target.value)} placeholder="e.g. 3.5 Years" className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold" />
                       </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Weight</label>
+                        <input type="text" value={formData.weight} onChange={(e) => handleInputChange('weight', e.target.value)} placeholder="e.g. 850 kg" className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Beta Casein</label>
+                        <input type="text" value={formData.betaCasein} onChange={(e) => handleInputChange('betaCasein', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-center" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Kappa Casein</label>
+                        <input type="text" value={formData.kappaCasein} onChange={(e) => handleInputChange('kappaCasein', e.target.value)} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-center" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-8">
+                    <div className="bg-slate-900 rounded-[2.5rem] p-10 border border-white/10 text-white relative">
+                       <div className="flex items-center gap-4 mb-8">
+                          <ImageIcon className="text-brand-green" />
+                          <h3 className="font-display font-black uppercase tracking-tight text-lg italic">Marketing Profile</h3>
+                       </div>
+                       <div className="flex items-center gap-6 mb-8">
+                          <img src={formData.image} alt="Preview" className="w-24 h-24 rounded-2xl object-contain bg-white/5 border border-white/10 p-2" />
+                          <div className="flex-grow">
+                             <label className="block text-[9px] font-black uppercase text-white/40 tracking-widest mb-2">Image URL</label>
+                             <input type="text" value={formData.image} onChange={(e) => handleInputChange('image', e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 font-mono text-xs text-white" />
+                          </div>
+                       </div>
+                       <div>
+                          <label className="block text-[9px] font-black uppercase text-white/40 tracking-widest mb-3 flex items-center gap-2"><Tags size={12} /> Badges (Comma Separated)</label>
+                          <input 
+                            type="text" 
+                            value={formData.badges.join(', ')} 
+                            onChange={(e) => handleInputChange('badges', e.target.value.split(',').map(s => s.trim()))} 
+                            placeholder="A2A2, High Milk, Show Specialist" 
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 font-bold text-brand-green" 
+                          />
+                       </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3 ml-2">Breeder Insight / Description</label>
+                      <textarea value={formData.description} onChange={(e) => handleInputChange('description', e.target.value)} rows={5} className="w-full bg-slate-50 border border-slate-100 rounded-[2rem] py-6 px-8 font-medium leading-relaxed" />
                     </div>
 
                     <div>
@@ -224,184 +282,228 @@ const BullEditor: React.FC = () => {
                       <input type="text" value={formData.geneticCodes} onChange={(e) => handleInputChange('geneticCodes', e.target.value)} placeholder="TCTD TLTP TRTV TY HMW1" className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-mono font-bold text-brand-blue" />
                     </div>
                   </div>
-
-                  <div className="space-y-8">
-                    <div className="bg-slate-900 rounded-[2.5rem] p-10 border border-white/10 text-white relative overflow-hidden">
-                       <div className="relative z-10">
-                          <div className="flex items-center gap-4 mb-8">
-                            <ImageIcon className="text-brand-green" />
-                            <h3 className="font-display font-black uppercase tracking-tight text-lg italic">Visual Media Asset</h3>
-                          </div>
-                          <div className="flex items-center gap-8 mb-8">
-                             <div className="w-32 h-32 bg-white/5 rounded-3xl border border-white/10 overflow-hidden flex items-center justify-center p-4">
-                                <img src={formData.image} alt="Preview" className="max-w-full max-h-full object-contain" />
-                             </div>
-                             <div className="flex-grow">
-                                <label className="block text-[10px] font-black uppercase text-white/40 tracking-widest mb-3 ml-1">CDN Image URL</label>
-                                <input type="text" value={formData.image} onChange={(e) => handleInputChange('image', e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 font-mono text-xs text-white outline-none focus:border-brand-green" />
-                             </div>
-                          </div>
-                          <div className="p-6 bg-white/5 border border-dashed border-white/20 rounded-2xl text-center">
-                             <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">Image Upload Integration: Ready</p>
-                          </div>
-                       </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-4 ml-2">Strategic Summary Description</label>
-                      <textarea value={formData.description} onChange={(e) => handleInputChange('description', e.target.value)} rows={5} className="w-full bg-slate-50 border border-slate-100 rounded-[2rem] py-6 px-8 font-medium leading-relaxed text-black" />
-                    </div>
-                  </div>
                 </div>
               </div>
             )}
 
-            {/* Pedigree Management */}
+            {/* 2. Lineage Tree Mapping */}
             {activeTab === 'pedigree' && (
               <div className="space-y-12 animate-in fade-in duration-500">
                 <div className="bg-brand-blue/5 p-12 rounded-[3rem] border border-brand-blue/10">
-                    <h3 className="font-display font-black text-brand-black uppercase italic text-2xl mb-12 flex items-center gap-4">
-                       <div className="w-2 h-10 bg-brand-green rounded-full"></div> Deep Lineage Mapping
+                    <h3 className="font-display font-black text-brand-black uppercase italic text-2xl mb-10 flex items-center gap-4">
+                       <Database className="text-brand-blue" /> DEEP LINEAGE MAPPING
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div className="space-y-8">
-                          <div>
-                            <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">Direct Sire</label>
-                            <input type="text" value={formData.pedigree.sire} onChange={(e) => handleInputChange('pedigree.sire', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black" />
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">Direct Dam</label>
-                            <input type="text" value={formData.pedigree.dam} onChange={(e) => handleInputChange('pedigree.dam', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black" />
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">Maternal Grand Sire (MGS)</label>
-                            <input type="text" value={formData.pedigree.mgs} onChange={(e) => handleInputChange('pedigree.mgs', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black" />
-                          </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        <div>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-2">DIRECT SIRE</label>
+                          <input type="text" value={formData.pedigree.sire} onChange={(e) => handleInputChange('pedigree.sire', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold" />
                         </div>
-                        <div className="space-y-8">
-                          <div>
-                            <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">Maternal Grand Dam (MGD)</label>
-                            <input type="text" value={formData.extendedPedigree?.mgd} onChange={(e) => handleInputChange('extendedPedigree.mgd', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black" />
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">MG Grand Sire (MGGS)</label>
-                            <input type="text" value={formData.extendedPedigree?.mggs} onChange={(e) => handleInputChange('extendedPedigree.mggs', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black" />
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-3">MG Grand Dam (MGGD)</label>
-                            <input type="text" value={formData.extendedPedigree?.mggd} onChange={(e) => handleInputChange('extendedPedigree.mggd', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black" />
-                          </div>
+                        <div>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-2">MATERNAL GRAND DAM (MGD)</label>
+                          <input type="text" value={formData.extendedPedigree?.mgd} onChange={(e) => handleInputChange('extendedPedigree.mgd', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold" />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-2">DIRECT DAM</label>
+                          <input type="text" value={formData.pedigree.dam} onChange={(e) => handleInputChange('pedigree.dam', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold" />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-2">MG GRAND SIRE (MGGS)</label>
+                          <input type="text" value={formData.extendedPedigree?.mggs} onChange={(e) => handleInputChange('extendedPedigree.mggs', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold" />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-2">MATERNAL GRAND SIRE (MGS)</label>
+                          <input type="text" value={formData.pedigree.mgs} onChange={(e) => handleInputChange('pedigree.mgs', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold" />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-black uppercase text-gray-400 tracking-widest mb-2">MG GRAND DAM (MGGD)</label>
+                          <input type="text" value={formData.extendedPedigree?.mggd} onChange={(e) => handleInputChange('extendedPedigree.mggd', e.target.value)} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold" />
                         </div>
                     </div>
                 </div>
               </div>
             )}
 
-            {/* Evaluations Tab */}
-            {activeTab === 'evaluations' && (
-              <div className="space-y-16 animate-in fade-in duration-500">
-                 {/* Production Section */}
-                 <div>
-                    <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-6">
-                       <h3 className="font-display font-black uppercase text-2xl italic text-brand-black flex items-center gap-4">
-                          <Microscope className="text-brand-blue" /> Production Performance
-                       </h3>
+            {/* 3. Performance & Production */}
+            {activeTab === 'performance' && (
+              <div className="space-y-12 animate-in fade-in duration-500">
+                 <div className="bg-slate-50 p-10 rounded-[3rem] border border-slate-100">
+                    <div className="flex items-center justify-between mb-10 border-b border-slate-200 pb-6">
+                       <h3 className="font-display font-black uppercase text-2xl italic flex items-center gap-4"><Microscope className="text-brand-blue" /> Production Proof</h3>
                        <div className="flex gap-4">
-                          <div className="bg-slate-50 px-4 py-2 rounded-xl flex items-center gap-4">
-                             <label className="text-[9px] font-black uppercase text-gray-400">Reliability %</label>
-                             <input type="number" step="0.1" value={formData.evaluations?.production.reliability} onChange={(e) => handleInputChange('evaluations.production.reliability', parseFloat(e.target.value))} className="w-16 bg-white border border-slate-200 rounded-lg text-center font-bold text-brand-blue text-xs py-1" />
+                          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 flex items-center gap-4">
+                             <span className="text-[9px] font-black uppercase text-gray-400">Reliability %</span>
+                             <input type="number" step="0.1" value={formData.evaluations?.production.reliability} onChange={(e) => handleInputChange('evaluations.production.reliability', parseFloat(e.target.value))} className="w-16 text-center font-bold text-brand-blue text-sm" />
                           </div>
-                       </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                       <div>
-                          <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">PTAM (Milk)</label>
-                          <input type="number" value={formData.evaluations?.production.milk} onChange={(e) => handleInputChange('evaluations.production.milk', parseInt(e.target.value))} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-black" />
-                       </div>
-                       <div>
-                          <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">Net Merit $</label>
-                          <input type="number" value={formData.evaluations?.production.nm} onChange={(e) => handleInputChange('evaluations.production.nm', parseInt(e.target.value))} className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 font-bold text-white" />
-                       </div>
-                       <div>
-                          <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">Fat (Lbs / %)</label>
-                          <div className="grid grid-cols-2 gap-2">
-                             <input type="number" value={formData.evaluations?.production.fat} onChange={(e) => handleInputChange('evaluations.production.fat', parseInt(e.target.value))} placeholder="Lbs" className="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-3 font-bold text-black text-center" />
-                             <input type="number" step="0.01" value={formData.evaluations?.production.fatPct} onChange={(e) => handleInputChange('evaluations.production.fatPct', parseFloat(e.target.value))} placeholder="%" className="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-3 font-bold text-brand-green text-center" />
+                          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 flex items-center gap-4">
+                             <span className="text-[9px] font-black uppercase text-gray-400">Daughters</span>
+                             <input type="number" value={formData.evaluations?.production.dtrs} onChange={(e) => handleInputChange('evaluations.production.dtrs', parseInt(e.target.value))} className="w-16 text-center font-bold text-black text-sm" />
                           </div>
-                       </div>
-                       <div>
-                          <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">Protein (Lbs / %)</label>
-                          <div className="grid grid-cols-2 gap-2">
-                             <input type="number" value={formData.evaluations?.production.prot} onChange={(e) => handleInputChange('evaluations.production.prot', parseInt(e.target.value))} placeholder="Lbs" className="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-3 font-bold text-black text-center" />
-                             <input type="number" step="0.01" value={formData.evaluations?.production.protPct} onChange={(e) => handleInputChange('evaluations.production.protPct', parseFloat(e.target.value))} placeholder="%" className="w-full bg-slate-50 border border-slate-100 rounded-xl py-4 px-3 font-bold text-brand-green text-center" />
+                          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 flex items-center gap-4">
+                             <span className="text-[9px] font-black uppercase text-gray-400">Herds</span>
+                             <input type="number" value={formData.evaluations?.production.herds} onChange={(e) => handleInputChange('evaluations.production.herds', parseInt(e.target.value))} className="w-16 text-center font-bold text-black text-sm" />
                           </div>
                        </div>
                     </div>
 
-                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
                        {[
-                         { label: 'DWP$', path: 'evaluations.production.dwp' },
-                         { label: 'CM$', path: 'evaluations.production.cm' },
-                         { label: 'FM$', path: 'evaluations.production.fm' },
-                         { label: 'GM$', path: 'evaluations.production.gm' },
-                         { label: 'CFP', path: 'evaluations.production.cfp' },
-                       ].map((item, i) => (
-                         <div key={i} className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                            <label className="block text-[8px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">{item.label}</label>
-                            <input type="number" value={(formData as any).evaluations.production[item.path.split('.')[2]]} onChange={(e) => handleInputChange(item.path, parseInt(e.target.value))} className="w-full bg-white border border-slate-200 rounded-xl py-2 px-4 font-bold text-black text-center" />
+                         { label: 'PTAM (Milk)', path: 'evaluations.production.milk' },
+                         { label: 'Fat (Lbs)', path: 'evaluations.production.fat' },
+                         { label: 'Fat %', path: 'evaluations.production.fatPct', step: 0.01 },
+                         { label: 'Protein (Lbs)', path: 'evaluations.production.prot' },
+                         { label: 'Prot %', path: 'evaluations.production.protPct', step: 0.01 },
+                       ].map((p, i) => (
+                         <div key={i}>
+                            <label className="block text-[9px] font-black uppercase text-gray-400 mb-2 ml-1">{p.label}</label>
+                            <input type="number" step={p.step || 1} value={(formData as any).evaluations.production[p.path.split('.')[2]]} onChange={(e) => handleInputChange(p.path, parseFloat(e.target.value))} className="w-full bg-white border border-slate-200 rounded-2xl py-4 px-6 font-bold text-black text-center" />
+                         </div>
+                       ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                       {[
+                         { label: 'Net Merit $', path: 'evaluations.production.nm' },
+                         { label: 'DWP$ Profit', path: 'evaluations.production.dwp' },
+                         { label: 'Cheese Merit', path: 'evaluations.production.cm' },
+                         { label: 'Fluid Merit', path: 'evaluations.production.fm' },
+                         { label: 'Grazing Merit', path: 'evaluations.production.gm' },
+                         { label: 'Total CFP', path: 'evaluations.production.cfp' },
+                       ].map((m, i) => (
+                         <div key={i} className="bg-white p-4 rounded-2xl border border-slate-200 text-center">
+                            <label className="block text-[8px] font-black uppercase text-gray-400 mb-2">{m.label}</label>
+                            <input type="number" value={(formData as any).evaluations.production[m.path.split('.')[2]]} onChange={(e) => handleInputChange(m.path, parseInt(e.target.value))} className="w-full font-bold text-brand-blue text-center outline-none" />
                          </div>
                        ))}
                     </div>
                  </div>
 
-                 {/* Calving Traits Index */}
-                 <div className="bg-slate-900 p-10 rounded-[2.5rem] text-white">
-                    <h3 className="font-display font-black uppercase text-xl mb-8 italic flex items-center gap-4">
-                       <Target className="text-brand-green" /> Calving Traits Index
-                    </h3>
+                 <div className="bg-slate-900 p-10 rounded-[3rem] text-white">
+                    <h3 className="font-display font-black uppercase text-xl mb-10 italic flex items-center gap-4"><Target className="text-brand-green" /> Calving Traits Index</h3>
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                        {[
                          { label: 'Sire Calving Ease (SCE)', path: 'evaluations.calving.sce' },
-                         { label: 'Daughter Calving Ease (DCE)', path: 'evaluations.calving.dce' },
+                         { label: 'Daughter Calv Ease (DCE)', path: 'evaluations.calving.dce' },
                          { label: 'Sire Still Birth (SSB)', path: 'evaluations.calving.ssb' },
                          { label: 'Daughter Still Birth (DSB)', path: 'evaluations.calving.dsb' },
                        ].map((c, i) => (
                          <div key={i}>
                             <label className="block text-[8px] font-black uppercase text-white/40 tracking-widest mb-3 ml-1">{c.label}</label>
                             <div className="relative">
-                              <input type="number" step="0.1" value={(formData as any).evaluations.calving[c.path.split('.')[2]]} onChange={(e) => handleInputChange(c.path, parseFloat(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 font-bold text-brand-green text-center outline-none focus:border-brand-green" />
+                              <input type="number" step="0.1" value={(formData as any).evaluations.calving[c.path.split('.')[2]]} onChange={(e) => handleInputChange(c.path, parseFloat(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 text-center font-bold text-brand-green" />
                               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[9px] text-white/20 font-black">%</span>
                             </div>
                          </div>
                        ))}
                     </div>
                  </div>
+              </div>
+            )}
 
-                 {/* Type Evaluation */}
-                 <div>
-                    <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-6">
-                       <h3 className="font-display font-black uppercase text-2xl italic text-brand-black flex items-center gap-4">
-                          <Activity className="text-brand-blue" /> Type & Confirmation
-                       </h3>
-                       <div className="bg-slate-50 px-4 py-2 rounded-xl flex items-center gap-4">
-                          <label className="text-[9px] font-black uppercase text-gray-400">Reliability %</label>
-                          <input type="number" step="0.1" value={formData.evaluations?.type.reliability} onChange={(e) => handleInputChange('evaluations.type.reliability', parseFloat(e.target.value))} className="w-16 bg-white border border-slate-200 rounded-lg text-center font-bold text-brand-blue text-xs py-1" />
+            {/* 4. Functional & Health */}
+            {activeTab === 'functional' && (
+              <div className="space-y-12 animate-in fade-in duration-500">
+                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div className="space-y-8 bg-slate-50 p-10 rounded-[3rem] border border-slate-100">
+                       <h3 className="font-display font-black uppercase text-lg italic text-brand-black flex items-center gap-3"><HeartPulse size={20} className="text-brand-green" /> Health & Fertility</h3>
+                       <div className="grid grid-cols-2 gap-6">
+                          {[
+                            { label: 'FI (Fertility Index)', path: 'evaluations.health.fi' },
+                            { label: 'DPR (Preg Rate)', path: 'evaluations.health.dpr' },
+                            { label: 'HCR (Heifer Concept)', path: 'evaluations.health.hcr' },
+                            { label: 'CCR (Cow Concept)', path: 'evaluations.health.ccr' },
+                            { label: 'Mastitis Resistance', path: 'evaluations.health.mastitis' },
+                            { label: 'SCS (Somatic Cell)', path: 'evaluations.health.scs' },
+                          ].map((f, i) => (
+                            <div key={i}>
+                               <label className="block text-[8px] font-black uppercase text-gray-400 mb-2">{f.label}</label>
+                               <input type="number" step="0.1" value={(formData as any).evaluations.health[f.path.split('.')[2]]} onChange={(e) => handleInputChange(f.path, parseFloat(e.target.value))} className="w-full bg-white border border-slate-200 rounded-xl py-3 text-center font-bold" />
+                            </div>
+                          ))}
                        </div>
                     </div>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                       <div>
-                          <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">PTAT (Overall Type)</label>
-                          <input type="number" step="0.01" value={formData.evaluations?.type.ptat} onChange={(e) => handleInputChange('evaluations.type.ptat', parseFloat(e.target.value))} className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-6 font-bold text-brand-green text-center" />
+
+                    <div className="space-y-8 bg-slate-900 p-10 rounded-[3rem] text-white">
+                       <h3 className="font-display font-black uppercase text-lg italic text-brand-blue flex items-center gap-3"><Binary size={20} /> Efficiency & Lifetime</h3>
+                       <div className="grid grid-cols-2 gap-6">
+                          {[
+                            { label: 'Productive Life (PL)', path: 'evaluations.health.pl' },
+                            { label: 'Livability (LIV)', path: 'evaluations.health.liv' },
+                            { label: 'Feed Efficiency (FE)', path: 'evaluations.health.fe' },
+                            { label: 'Feed Saved', path: 'evaluations.health.feedSaved' },
+                            { label: 'RFI (Residual Feed)', path: 'evaluations.health.rfi' },
+                            { label: 'Milking Speed', path: 'evaluations.health.milkingSpeed' },
+                          ].map((eff, i) => (
+                            <div key={i}>
+                               <label className="block text-[8px] font-black uppercase text-white/40 mb-2">{eff.label}</label>
+                               <input type="number" step="0.1" value={(formData as any).evaluations.health[eff.path.split('.')[2]]} onChange={(e) => handleInputChange(eff.path, parseFloat(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-xl py-3 text-center font-bold text-white outline-none" />
+                            </div>
+                          ))}
                        </div>
+                    </div>
+                 </div>
+              </div>
+            )}
+
+            {/* 5. Linear Conformation */}
+            {activeTab === 'linear' && (
+              <div className="space-y-12 animate-in fade-in duration-500">
+                 <div className="bg-slate-50 p-12 rounded-[3.5rem] border border-slate-100">
+                    <div className="flex items-center justify-between mb-12 border-b border-slate-200 pb-8">
+                        <div className="flex items-center gap-4">
+                           <Ruler className="text-brand-blue" />
+                           <h3 className="font-display font-black uppercase text-2xl italic">Type Mapping Profile</h3>
+                        </div>
+                        <div className="flex gap-4">
+                           <div className="bg-white px-6 py-4 rounded-2xl border border-slate-200 flex items-center gap-6">
+                              <span className="text-[10px] font-black uppercase text-gray-400">Type Rel%</span>
+                              <input type="number" step="0.1" value={formData.evaluations?.type.reliability} onChange={(e) => handleInputChange('evaluations.type.reliability', parseFloat(e.target.value))} className="w-16 text-center font-bold text-brand-blue text-lg" />
+                           </div>
+                           <div className="bg-slate-900 px-8 py-4 rounded-2xl flex items-center gap-6 text-white shadow-xl">
+                              <span className="text-[10px] font-black uppercase text-white/40">PTAT Score</span>
+                              <input type="number" step="0.01" value={formData.evaluations?.type.ptat} onChange={(e) => handleInputChange('evaluations.type.ptat', parseFloat(e.target.value))} className="w-20 text-center font-black text-brand-green text-xl bg-transparent outline-none" />
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-8">
+                       {formData.linearTraitsFull?.map((lt, idx) => (
+                          <div key={idx} className="relative group">
+                             <div className="flex justify-between items-center mb-3">
+                                <span className="text-[11px] font-black uppercase text-brand-black tracking-widest">{lt.trait}</span>
+                                <span className={`text-sm font-black font-display ${lt.value > 0 ? 'text-brand-green' : 'text-brand-blue'}`}>
+                                   {lt.value > 0 ? '+' : ''}{lt.value.toFixed(2)}
+                                </span>
+                             </div>
+                             <div className="flex items-center gap-5">
+                                <span className="text-[9px] font-bold text-gray-400 w-20 text-right uppercase italic">{lt.labelLow}</span>
+                                <div className="flex-grow relative h-8 flex items-center">
+                                   <div className="absolute inset-0 bg-slate-200 rounded-full h-2 top-1/2 -translate-y-1/2"></div>
+                                   <input 
+                                      type="range" min="-3" max="3" step="0.01" 
+                                      value={lt.value} 
+                                      onChange={(e) => handleLinearChange(idx, parseFloat(e.target.value))}
+                                      className="absolute inset-0 w-full opacity-0 cursor-pointer z-20"
+                                   />
+                                   <div 
+                                      className={`absolute h-5 w-5 rounded-full shadow-lg z-10 transition-all pointer-events-none border-2 border-white ${lt.value > 0 ? 'bg-brand-green' : 'bg-brand-blue'}`}
+                                      style={{ left: `${50 + (lt.value * 16.66)}%`, transform: 'translateX(-50%)' }}
+                                   ></div>
+                                </div>
+                                <span className="text-[9px] font-bold text-gray-400 w-20 text-left uppercase italic">{lt.labelHigh}</span>
+                             </div>
+                          </div>
+                       ))}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-8 mt-20 border-t border-slate-200 pt-12">
                        {[
                          { label: 'Udder Composite (UDC)', path: 'evaluations.type.udc' },
-                         { label: 'Feet & Leg Comp (FLC)', path: 'evaluations.type.flc' },
-                         { label: 'Body Weight Comp (BWC)', path: 'evaluations.type.bwc' },
+                         { label: 'Feet & Legs (FLC)', path: 'evaluations.type.flc' },
+                         { label: 'Body Weight (BWC)', path: 'evaluations.type.bwc' },
                        ].map((t, i) => (
-                         <div key={i}>
-                            <label className="block text-[9px] font-black uppercase text-gray-400 tracking-widest mb-2 ml-1">{t.label}</label>
-                            <input type="number" step="0.01" value={(formData as any).evaluations.type[t.path.split('.')[2]]} onChange={(e) => handleInputChange(t.path, parseFloat(e.target.value))} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 font-bold text-black text-center" />
+                         <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-200 text-center shadow-sm">
+                            <label className="block text-[10px] font-black uppercase text-gray-400 mb-3 tracking-widest">{t.label}</label>
+                            <input type="number" step="0.01" value={(formData as any).evaluations.type[t.path.split('.')[2]]} onChange={(e) => handleInputChange(t.path, parseFloat(e.target.value))} className="w-full text-2xl font-display font-black text-brand-black text-center bg-transparent outline-none" />
                          </div>
                        ))}
                     </div>
@@ -409,136 +511,88 @@ const BullEditor: React.FC = () => {
               </div>
             )}
 
-            {/* Functional Traits Tab */}
-            {activeTab === 'functional' && (
-              <div className="space-y-12 animate-in fade-in duration-500">
-                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div className="space-y-6 bg-slate-50 p-10 rounded-[3rem] border border-slate-100">
-                       <h3 className="font-display font-black uppercase text-lg italic text-brand-black mb-6">Fertility & Health Indices</h3>
-                       <div className="grid grid-cols-2 gap-6">
-                          {[
-                            { label: 'Fertility Index (FI)', path: 'evaluations.health.fi' },
-                            { label: 'Daughter Preg Rate (DPR)', path: 'evaluations.health.dpr' },
-                            { label: 'Heifer Concept Rate (HCR)', path: 'evaluations.health.hcr' },
-                            { label: 'Cow Concept Rate (CCR)', path: 'evaluations.health.ccr' },
-                            { label: 'Mastitis Index', path: 'evaluations.health.mastitis' },
-                            { label: 'Somatic Cell Score (SCS)', path: 'evaluations.health.scs' },
-                          ].map((f, i) => (
-                            <div key={i}>
-                               <label className="block text-[8px] font-black uppercase text-gray-400 mb-2">{f.label}</label>
-                               <input type="number" step="0.1" value={(formData as any).evaluations.health[f.path.split('.')[2]]} onChange={(e) => handleInputChange(f.path, parseFloat(e.target.value))} className="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 font-bold text-black text-center" />
-                            </div>
-                          ))}
+            {/* 6. Card & Hero Dashboard Highlights */}
+            {activeTab === 'dashboard' && (
+              <div className="space-y-12 animate-in fade-in duration-500 max-w-4xl">
+                 <div className="bg-brand-black p-12 rounded-[3rem] text-white border border-white/5 shadow-2xl">
+                    <div className="flex items-center gap-5 mb-12">
+                       <LayoutDashboard className="text-brand-green" size={32} />
+                       <div>
+                          <h3 className="font-display font-black uppercase tracking-tight text-3xl italic">Summary Dashboard</h3>
+                          <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-1">Controls Bull Card & Hero Index display</p>
                        </div>
-                    </div>
-
-                    <div className="space-y-6 bg-slate-900 p-10 rounded-[3rem] text-white">
-                       <h3 className="font-display font-black uppercase text-lg italic text-brand-green mb-6">Efficiency & Longevity</h3>
-                       <div className="grid grid-cols-2 gap-6">
-                          {[
-                            { label: 'Productive Life (PL)', path: 'evaluations.health.pl' },
-                            { label: 'Livability (LIV)', path: 'evaluations.health.liv' },
-                            { label: 'Feed Efficiency (FE)', path: 'evaluations.health.fe' },
-                            { label: 'Feed Saved', path: 'evaluations.health.feedSaved' },
-                            { label: 'RFI', path: 'evaluations.health.rfi' },
-                            { label: 'Milking Speed', path: 'evaluations.health.milkingSpeed' },
-                          ].map((eff, i) => (
-                            <div key={i}>
-                               <label className="block text-[8px] font-black uppercase text-white/40 mb-2">{eff.label}</label>
-                               <input type="number" step="0.1" value={(formData as any).evaluations.health[eff.path.split('.')[2]]} onChange={(e) => handleInputChange(eff.path, parseFloat(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 font-bold text-white text-center outline-none focus:border-brand-green" />
-                            </div>
-                          ))}
-                       </div>
-                    </div>
-                 </div>
-              </div>
-            )}
-
-            {/* Linear Traits Tab */}
-            {activeTab === 'linear' && (
-              <div className="space-y-12 animate-in fade-in duration-500">
-                 <div className="bg-slate-50 p-10 rounded-[3rem] border border-slate-100">
-                    <div className="flex items-center gap-4 mb-10 border-b border-slate-200 pb-6">
-                        <Ruler className="text-brand-blue" />
-                        <h3 className="font-display font-black uppercase text-2xl italic text-brand-black">Linear Trait Mapping</h3>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-6">
-                       {formData.linearTraitsFull?.map((lt, idx) => (
-                          <div key={idx} className="group">
-                             <div className="flex justify-between items-center mb-2">
-                                <span className="text-[10px] font-black uppercase text-gray-500 tracking-widest">{lt.trait}</span>
-                                <span className={`text-xs font-black ${lt.value > 0 ? 'text-brand-green' : 'text-brand-blue'}`}>
-                                   {lt.value > 0 ? '+' : ''}{lt.value.toFixed(2)}
-                                </span>
-                             </div>
-                             <div className="flex items-center gap-4">
-                                <span className="text-[8px] font-bold text-gray-400 w-16 text-right uppercase">{lt.labelLow}</span>
-                                <div className="flex-grow relative h-6 flex items-center">
-                                   <div className="absolute inset-0 bg-slate-200 rounded-full h-1.5 top-1/2 -translate-y-1/2"></div>
-                                   <div className="absolute left-1/2 top-1/2 -translate-y-1/2 h-3 w-0.5 bg-slate-400"></div>
-                                   <input 
-                                      type="range" 
-                                      min="-3" 
-                                      max="3" 
-                                      step="0.01" 
-                                      value={lt.value} 
-                                      onChange={(e) => handleLinearChange(idx, parseFloat(e.target.value))}
-                                      className="absolute inset-0 w-full opacity-0 cursor-pointer z-20"
-                                   />
-                                   <div 
-                                      className={`absolute h-4 w-4 rounded-full shadow-lg z-10 transition-all pointer-events-none ${lt.value > 0 ? 'bg-brand-green' : 'bg-brand-blue'}`}
-                                      style={{ left: `${50 + (lt.value * 16.66)}%`, transform: 'translateX(-50%)' }}
-                                   ></div>
-                                </div>
-                                <span className="text-[8px] font-bold text-gray-400 w-16 text-left uppercase">{lt.labelHigh}</span>
-                             </div>
-                          </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
+                       {[
+                         { label: 'Primary GTPI', path: 'stats.gtpi' },
+                         { label: 'Net Merit $', path: 'stats.nm' },
+                         { label: 'PTAM (Milk Summary)', path: 'stats.milk' },
+                         { label: 'UDC Composite', path: 'stats.udc', step: 0.01 },
+                         { label: 'PTAT Conformation', path: 'stats.ptat', step: 0.01 },
+                         { label: 'Daughter Preg (DPR)', path: 'stats.dpr', step: 0.1 },
+                         { label: 'Somatic Cell (SCS)', path: 'stats.scs', step: 0.01 },
+                         { label: 'Fat Yield (Summary)', path: 'stats.fat' },
+                         { label: 'Prot Yield (Summary)', path: 'stats.protein' },
+                       ].map((s, i) => (
+                         <div key={i} className="group">
+                            <label className="block text-[10px] font-black uppercase text-white/40 tracking-widest mb-4 group-hover:text-brand-green transition-colors">{s.label}</label>
+                            <input 
+                              type="number" 
+                              step={s.step || 1} 
+                              value={(formData as any).stats[s.path.split('.')[1]]} 
+                              onChange={(e) => handleInputChange(s.path, parseFloat(e.target.value))} 
+                              className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 font-display font-black text-2xl text-white outline-none focus:border-brand-green transition-all" 
+                            />
+                         </div>
                        ))}
                     </div>
                  </div>
-              </div>
-            )}
-
-            {/* Market Pricing Tab */}
-            {activeTab === 'pricing' && (
-              <div className="space-y-12 animate-in fade-in duration-500 max-w-2xl">
-                 <div className="bg-slate-900 p-12 rounded-[3rem] text-white">
-                    <div className="flex items-center gap-4 mb-12">
-                       <DollarSign className="text-brand-green" />
-                       <h3 className="font-display font-black uppercase tracking-tight text-2xl italic">Global Market Valuation</h3>
+                 <div className="p-10 bg-brand-green/5 border border-brand-green/10 rounded-[3rem] flex gap-8 items-start">
+                    <div className="w-16 h-16 bg-brand-green rounded-2xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                       <Target size={28} />
                     </div>
-                    <div className="space-y-10">
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                          <div>
-                             <label className="block text-[10px] font-black uppercase text-white/40 tracking-widest mb-4">Conventional Straw (₹)</label>
-                             <input type="number" value={formData.pricing.conventional} onChange={(e) => handleInputChange('pricing.conventional', parseInt(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 font-mono font-black text-3xl text-white outline-none focus:border-brand-green" />
-                          </div>
-                          <div>
-                             <label className="block text-[10px] font-black uppercase text-white/40 tracking-widest mb-4">Sexed Ultra 4M (₹)</label>
-                             <input type="number" value={formData.pricing.sexed || 0} onChange={(e) => handleInputChange('pricing.sexed', parseInt(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 font-mono font-black text-3xl text-brand-green outline-none focus:border-brand-green" />
-                          </div>
-                       </div>
-                       
-                       <div className="pt-10 border-t border-white/10 flex items-center justify-between">
-                          <div className="flex items-center gap-4">
-                             <input type="checkbox" checked={formData.published} onChange={(e) => setFormData({...formData, published: e.target.checked})} className="w-8 h-8 rounded-xl bg-white/5 border-white/10 accent-brand-green cursor-pointer" id="pub-check" />
-                             <label htmlFor="pub-check" className="font-black uppercase tracking-[0.2em] text-[12px] cursor-pointer text-white/80">Active Public Portfolio Inventory</label>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 
-                 <div className="p-8 bg-brand-blue/5 border border-brand-blue/10 rounded-[2.5rem] flex items-center gap-6">
-                    <div className="w-14 h-14 bg-brand-blue rounded-2xl flex items-center justify-center text-white flex-shrink-0">
-                       <DollarSign size={24} />
-                    </div>
-                    <p className="text-sm font-medium text-gray-600 italic leading-relaxed">
-                       Note: Pricing reflects current genomic evaluation proof levels. Updates here flow instantly to the public Price Index page.
+                    <p className="text-base font-medium text-gray-600 italic leading-relaxed">
+                       The values in this tab are used for the <strong>high-visibility indices</strong> on the Bull Portfolio cards and the Bull Profile hero section. Ensure these reflect the most accurate proof data for marketing.
                     </p>
                  </div>
               </div>
             )}
+
+            {/* 7. Market Pricing & Status */}
+            {activeTab === 'pricing' && (
+              <div className="space-y-12 animate-in fade-in duration-500 max-w-2xl">
+                 <div className="bg-slate-900 p-12 rounded-[3rem] text-white shadow-2xl">
+                    <div className="flex items-center gap-5 mb-12">
+                       <DollarSign className="text-brand-green" size={28} />
+                       <h3 className="font-display font-black uppercase tracking-tight text-2xl italic">Market Valuation (₹)</h3>
+                    </div>
+                    <div className="space-y-10">
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                          <div>
+                             <label className="block text-[10px] font-black uppercase text-white/40 tracking-widest mb-4">Conventional Straw</label>
+                             <input type="number" value={formData.pricing.conventional} onChange={(e) => handleInputChange('pricing.conventional', parseInt(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 font-mono font-black text-4xl text-white outline-none focus:border-brand-green" />
+                          </div>
+                          <div>
+                             <label className="block text-[10px] font-black uppercase text-white/40 tracking-widest mb-4">Sexed Ultra 4M</label>
+                             <input type="number" value={formData.pricing.sexed || 0} onChange={(e) => handleInputChange('pricing.sexed', parseInt(e.target.value))} className="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 font-mono font-black text-4xl text-brand-green outline-none focus:border-brand-green" />
+                          </div>
+                       </div>
+                       
+                       <div className="pt-10 border-t border-white/10 flex items-center justify-between">
+                          <div className="flex items-center gap-5">
+                             <div className="relative">
+                                <input type="checkbox" checked={formData.published} onChange={(e) => setFormData({...formData, published: e.target.checked})} className="w-10 h-10 rounded-xl bg-white/5 border-white/10 accent-brand-green cursor-pointer appearance-none checked:bg-brand-green border-2 transition-all" id="pub-check" />
+                                {formData.published && <Save size={16} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-brand-black pointer-events-none" />}
+                             </div>
+                             <label htmlFor="pub-check" className="font-black uppercase tracking-[0.2em] text-[13px] cursor-pointer text-white/80">Active Inventory (Live in Portfolio)</label>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+            )}
+
           </div>
         </form>
       </div>
