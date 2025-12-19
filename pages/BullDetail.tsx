@@ -4,7 +4,7 @@ import {
   ArrowLeft, Share2, Activity, Droplets, Heart, ShieldCheck, 
   Award, Zap, Ruler, Beaker, TrendingUp, Info, LayoutList, 
   ClipboardCheck, ChevronRight, BarChart4, Facebook, Twitter, Linkedin,
-  FileText, Activity as HealthIcon, Target
+  FileText, Activity as HealthIcon, Target, Scale, ZapOff, Gauge
 } from 'lucide-react';
 import { useBulls } from '../context/BullContext';
 
@@ -90,7 +90,7 @@ const BullDetail: React.FC = () => {
                  {bull.badges.map((badge, idx) => (
                     <span key={idx} className="bg-white/10 border border-white/20 text-brand-green text-[8px] sm:text-[9px] font-black px-3 sm:px-4 py-1.5 rounded-full uppercase tracking-widest backdrop-blur-md">{badge}</span>
                  ))}
-                 <span className="bg-white/10 border border-white/20 text-white text-[8px] sm:text-[9px] font-black px-3 sm:px-4 py-1.5 rounded-full uppercase tracking-widest backdrop-blur-md">Official Cdcb Evaluation</span>
+                 <span className="bg-white/10 border border-white/20 text-white text-[8px] sm:text-[9px] font-black px-3 sm:px-4 py-1.5 rounded-full uppercase tracking-widest backdrop-blur-md">Official CDCB Evaluation</span>
               </div>
               <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black mb-2 tracking-tighter uppercase leading-none break-words">
                 {bull.name}
@@ -136,7 +136,7 @@ const BullDetail: React.FC = () => {
           
           {/* Left Sidebar */}
           <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-8">
-            <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_25px_60px_-15px_rgba(57,130,217,0.1)] border border-slate-100 overflow-hidden flex flex-col">
+            <div className="bg-white rounded-[2.5rem] sm:rounded-[2.5rem] shadow-[0_25px_60px_-15px_rgba(57,130,217,0.1)] border border-slate-100 overflow-hidden flex flex-col">
               <div className="bg-slate-50 relative aspect-video sm:aspect-[4/3] flex items-center justify-center p-4 sm:p-6 border-b border-slate-50 overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-100/50 to-white pointer-events-none opacity-50"></div>
                 <img 
@@ -261,6 +261,7 @@ const BullDetail: React.FC = () => {
                         <div className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Reliability: {bull.evaluations.production.reliability}%</div>
                     </div>
                     <div className="p-8 sm:p-12">
+                        {/* Primary Production Metrics */}
                         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-10">
                             {[
                                 { label: 'Milk', val: bull.evaluations.production.milk, unit: 'lbs' },
@@ -276,11 +277,13 @@ const BullDetail: React.FC = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                        {/* Economic Merit Indices */}
+                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
                             {[
                                 { label: 'Net Merit $', val: `+$${bull.evaluations.production.nm}` },
                                 { label: 'DWP$', val: `+$${bull.evaluations.production.dwp}` },
                                 { label: 'Cheese Merit $', val: `+$${bull.evaluations.production.cm}` },
+                                { label: 'Fluid Merit $', val: `+$${bull.evaluations.production.fm}` },
                                 { label: 'Combined F+P', val: `+${bull.evaluations.production.cfp}` },
                             ].map((m, i) => (
                                 <div key={i} className="flex justify-between items-center p-5 bg-white border border-slate-100 rounded-xl">
@@ -298,7 +301,7 @@ const BullDetail: React.FC = () => {
                     <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 overflow-hidden flex flex-col">
                         <div className="bg-slate-900 p-8 flex items-center gap-4 text-white">
                             <Target size={24} className="text-brand-green" />
-                            <h3 className="font-display font-black uppercase tracking-tight text-lg">Calving Traits</h3>
+                            <h3 className="font-display font-black uppercase tracking-tight text-lg italic">Calving Traits</h3>
                         </div>
                         <div className="p-8 space-y-4 flex-grow">
                             {[
@@ -307,8 +310,8 @@ const BullDetail: React.FC = () => {
                                 { label: 'Sire Still Birth', val: `${bull.evaluations.calving.ssb}%` },
                                 { label: 'Daughter Still Birth', val: `${bull.evaluations.calving.dsb}%` },
                             ].map((c, i) => (
-                                <div key={i} className="flex justify-between items-center py-4 border-b border-slate-50 last:border-0">
-                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">{c.label}</span>
+                                <div key={i} className="flex justify-between items-center py-4 border-b border-slate-50 last:border-0 group">
+                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest group-hover:text-brand-green transition-colors">{c.label}</span>
                                     <span className="font-display font-black text-brand-black">{c.val}</span>
                                 </div>
                             ))}
@@ -319,9 +322,9 @@ const BullDetail: React.FC = () => {
                     <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 overflow-hidden flex flex-col">
                         <div className="bg-brand-blue p-8 flex items-center gap-4 text-white">
                             <HealthIcon size={24} className="text-white" />
-                            <h3 className="font-display font-black uppercase tracking-tight text-lg">Health & Functional</h3>
+                            <h3 className="font-display font-black uppercase tracking-tight text-lg italic">Health & Functional</h3>
                         </div>
-                        <div className="p-8 grid grid-cols-2 gap-x-8 gap-y-4">
+                        <div className="p-8 grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
                             {[
                                 { label: 'FI', val: `+${bull.evaluations.health.fi}` },
                                 { label: 'DPR', val: bull.evaluations.health.dpr },
@@ -331,9 +334,12 @@ const BullDetail: React.FC = () => {
                                 { label: 'SCS', val: bull.evaluations.health.scs },
                                 { label: 'PL', val: `+${bull.evaluations.health.pl}` },
                                 { label: 'FE', val: bull.evaluations.health.fe },
+                                { label: 'RFI', val: bull.evaluations.health.rfi },
+                                { label: 'Feed Saved', val: `+${bull.evaluations.health.feedSaved}` },
+                                { label: 'Milk Speed', val: bull.evaluations.health.milkingSpeed },
                             ].map((h, i) => (
-                                <div key={i} className="flex justify-between items-center py-3 border-b border-slate-50 last:border-0">
-                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">{h.label}</span>
+                                <div key={i} className="flex flex-col justify-center py-4 border-b border-slate-50 last:border-0 group">
+                                    <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 group-hover:text-brand-blue transition-colors">{h.label}</span>
                                     <span className="font-display font-black text-brand-black">{h.val}</span>
                                 </div>
                             ))}
@@ -367,7 +373,7 @@ const BullDetail: React.FC = () => {
                                         <span className="text-[10px] font-bold text-gray-400">{lt.labelLow}</span>
                                     </div>
                                     <div className="col-span-2 relative h-4 bg-slate-100 rounded-full flex items-center">
-                                        {/* Simplified visual bar from -2 to +2 */}
+                                        {/* Visual bar from -2 to +2 */}
                                         <div className="absolute left-1/2 w-[2px] h-full bg-slate-300 -translate-x-1/2 z-0"></div>
                                         <div 
                                             className={`absolute h-3 w-3 rounded-full shadow-lg transition-all duration-1000 z-10 ${lt.value > 0 ? 'bg-brand-green' : 'bg-brand-blue'}`}
@@ -388,6 +394,7 @@ const BullDetail: React.FC = () => {
                                 </div>
                             ))}
                         </div>
+                        {/* Summary Type Stats Footer */}
                         <div className="p-8 bg-slate-50 grid grid-cols-3 gap-8 text-center border-t border-slate-100">
                              <div>
                                 <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">PTAT</span>
