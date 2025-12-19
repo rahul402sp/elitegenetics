@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -5,7 +6,7 @@ import {
   Award, Zap, ChevronRight, Binary, Globe2, 
   Dna, ArrowUpRight, Database,
   Check, Info, Globe, Shield, Activity,
-  Target
+  Target, Quote, Star, Users
 } from 'lucide-react';
 import BullCard from '../components/BullCard';
 import { BULLS } from '../constants';
@@ -15,6 +16,37 @@ const Home: React.FC = () => {
   const satelliteBull = BULLS.find(b => b.id === 'satellite');
   const otherFeaturedBulls = BULLS.filter(b => b.id !== 'satellite').slice(0, 2);
   const featuredBulls = satelliteBull ? [satelliteBull, ...otherFeaturedBulls] : BULLS.slice(0, 3);
+
+  const testimonials = [
+    {
+      name: "Gurnam Singh Gill",
+      location: "Village Chuhar Chak, Moga (Punjab)",
+      text: "The genomic performance of SATELLITE straws is visible in our latest batch. The milk yield and fat percentages are significantly higher than our local herd average.",
+      rating: 5,
+      highlight: "Milk Production"
+    },
+    {
+      name: "Balwinder Singh Sandhu",
+      location: "Fatehgarh Sahib (Punjab)",
+      text: "I was looking for reliable A2A2 genetics to improve my dairy's health profile. Elite Genetics provided clear data and genuine AITotal straws that worked wonders.",
+      rating: 5,
+      highlight: "A2A2 Genetics"
+    },
+    {
+      name: "Harkirat Singh Dhaliwal",
+      location: "Bathinda (Punjab)",
+      text: "The udder quality on our HUDSON heifers is exceptional. Honest guidance from the team helped us choose the right bull for our specific farm goals.",
+      rating: 5,
+      highlight: "Udder Quality"
+    },
+    {
+      name: "Sukhdev Singh Virk",
+      location: "Karnal (Haryana)",
+      text: "Elite Genetics isn't just a supplier; they are partners. Their after-sales support and technical advice on breeding programs have truly boosted our profitability.",
+      rating: 5,
+      highlight: "Reliable Support"
+    }
+  ];
 
   return (
     <div className="w-full bg-white overflow-x-hidden font-sans">
@@ -208,7 +240,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Section 4: Strategic Alliance - REFINED PROFESSIONAL DESIGN --- */}
+      {/* --- Section 4: Strategic Alliance --- */}
       <section className="py-24 sm:py-40 lg:py-56 bg-[#f8fafc] relative overflow-hidden">
         {/* Subtle Decorative Grid */}
         <div className="absolute inset-0 opacity-[0.4] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#e2e8f0 1.5px, transparent 1.5px)', backgroundSize: '48px 48px' }}></div>
@@ -295,7 +327,71 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* --- Section 5: Final Performance CTA --- */}
+      {/* --- Section 5: Voices of the Field (Testimonials) --- */}
+      <section className="py-24 sm:py-40 lg:py-56 bg-slate-50 relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16 sm:mb-24">
+            <span className="text-brand-green font-black tracking-[0.5em] uppercase text-[11px] mb-6 block">Voices of the Field</span>
+            <h2 className="text-4xl sm:text-6xl font-display font-black text-gray-900 tracking-tighter uppercase italic leading-[1.05]">
+              Trusted by <br />
+              <span className="text-brand-blue">Success Builders.</span>
+            </h2>
+            <p className="text-gray-500 font-bold mt-6 tracking-wide uppercase text-[11px]">Real experiences from progressive dairy farmers.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-700 group flex flex-col h-full">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-brand-green group-hover:scale-110 transition-transform">
+                    <Quote size={24} />
+                  </div>
+                  <div className="flex gap-0.5">
+                    {[...Array(t.rating)].map((_, idx) => (
+                      <Star key={idx} size={12} className="fill-brand-blue text-brand-blue" />
+                    ))}
+                  </div>
+                </div>
+
+                <p className="text-gray-600 font-bold text-lg mb-8 leading-relaxed italic flex-grow">
+                  "{t.text}"
+                </p>
+
+                <div className="pt-8 border-t border-slate-50">
+                  <div className="flex items-center gap-4 mb-3">
+                    <span className="text-[10px] bg-brand-green/10 text-brand-green font-black uppercase px-3 py-1 rounded-full tracking-widest">
+                      {t.highlight}
+                    </span>
+                  </div>
+                  <h4 className="text-brand-black font-black uppercase text-sm tracking-tight">{t.name}</h4>
+                  <p className="text-gray-400 font-bold text-[9px] uppercase tracking-widest mt-1">{t.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-20 sm:mt-32 text-center">
+            <div className="inline-flex flex-col sm:flex-row items-center gap-6 bg-brand-black text-white p-6 sm:p-10 rounded-[3rem] shadow-2xl">
+               <div className="flex -space-x-4">
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className="w-12 h-12 rounded-full border-4 border-brand-black bg-slate-800 flex items-center justify-center text-[10px] font-black">
+                      <Users size={18} />
+                    </div>
+                  ))}
+               </div>
+               <div className="text-left">
+                  <p className="text-xs sm:text-sm font-black uppercase tracking-widest">Join +500 Progressive Farmers</p>
+                  <p className="text-[10px] text-white/50 font-bold tracking-wider mt-1">Transforming herds across North India with elite bloodlines.</p>
+               </div>
+               <Link to="/contact" className="bg-brand-green hover:bg-white hover:text-brand-black text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all">
+                  Consult Now
+               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- Section 6: Final Performance CTA --- */}
       <section className="py-32 sm:py-56 bg-brand-black text-white relative overflow-hidden px-4">
         {/* Dynamic lighting */}
         <div className="absolute top-0 right-0 w-3/4 h-full bg-white/10 rounded-full blur-[200px] -mr-1/4 -mt-1/4"></div>
