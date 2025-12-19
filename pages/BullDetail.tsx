@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
@@ -7,7 +6,7 @@ import {
   ClipboardCheck, ChevronRight, Facebook, Twitter, Linkedin,
   Activity as HealthIcon, Target, Scale, Gauge, 
   FileText, Download, UserPlus, CheckCircle2, ChevronDown,
-  Binary, GitFork, ChevronLeft, ChevronUp
+  Binary, GitFork, ChevronLeft, ChevronUp, Layers, Dna
 } from 'lucide-react';
 import { useBulls } from '../context/BullContext';
 
@@ -47,7 +46,7 @@ const BullDetail: React.FC = () => {
     );
   }
 
-  // Refined Ancestor Node Component
+  // Refined Ancestor Node Component (Used in Mobile/Tablet)
   const PedigreeNode = ({ 
     label, 
     name, 
@@ -61,7 +60,7 @@ const BullDetail: React.FC = () => {
     acronym?: string, 
     description?: string
   }) => {
-    const colorClass = type === 'main' ? 'bg-brand-black text-white border-white/10' : 
+    const colorClass = type === 'main' ? 'bg-brand-black text-white border-white/10 shadow-2xl' : 
                        type === 'sire' ? 'bg-brand-blue/5 border-brand-blue/20' : 
                        'bg-brand-green/5 border-brand-green/20';
     
@@ -70,10 +69,10 @@ const BullDetail: React.FC = () => {
                        'text-brand-green';
 
     return (
-      <div className={`flex-grow relative z-10 p-4 sm:p-5 rounded-2xl sm:rounded-3xl border ${colorClass} transition-all duration-300 hover:shadow-xl group/node`}>
+      <div className={`flex-grow relative z-10 p-4 sm:p-5 lg:p-6 rounded-2xl sm:rounded-3xl border ${colorClass} transition-all duration-300 hover:shadow-xl group/node w-full backdrop-blur-sm`}>
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <span className={`text-[7px] sm:text-[8px] font-black uppercase tracking-[0.2em] ${labelColor}`}>{label}</span>
+            <span className={`text-[7px] sm:text-[8px] lg:text-[9px] font-black uppercase tracking-[0.2em] ${labelColor}`}>{label}</span>
             {acronym && (
               <span className="text-[7px] bg-slate-200 text-slate-500 px-1.5 py-0.5 rounded font-black uppercase tracking-widest">{acronym}</span>
             )}
@@ -87,7 +86,7 @@ const BullDetail: React.FC = () => {
             </div>
           )}
         </div>
-        <p className={`font-display font-black leading-tight uppercase tracking-tight group-hover/node:translate-x-1 transition-transform ${type === 'main' ? 'text-lg sm:text-xl italic' : 'text-xs sm:text-sm text-brand-black'}`}>
+        <p className={`font-display font-black leading-tight uppercase tracking-tight group-hover/node:translate-x-1 transition-transform ${type === 'main' ? 'text-lg sm:text-xl lg:text-2xl italic' : 'text-xs sm:text-sm lg:text-[13px] text-brand-black'}`}>
           {name}
         </p>
       </div>
@@ -380,72 +379,170 @@ const BullDetail: React.FC = () => {
           </div>
         </section>
 
-        {/* 🧬 FULL GENETIC LINEAGE */}
-        <section id="pedigree" className="bg-white p-6 sm:p-20 rounded-[2rem] sm:rounded-[4rem] shadow-sm border border-slate-100 overflow-hidden relative">
+        {/* 🧬 FULL GENETIC LINEAGE - Table Redesign for Desktop */}
+        <section id="pedigree" className="bg-white p-6 sm:p-12 lg:p-20 rounded-[2rem] sm:rounded-[4rem] shadow-sm border border-slate-100 overflow-hidden relative">
           <div className="absolute top-0 right-0 p-20 opacity-5 -z-10 rotate-12 pointer-events-none">
              <GitFork size={400} />
           </div>
           
-          <div className="flex flex-col md:flex-row items-center justify-between mb-12 sm:mb-16 gap-6 sm:gap-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-12 sm:mb-16 lg:mb-20 gap-6 sm:gap-8 relative z-10">
             <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-brand-black rounded-xl sm:rounded-[1.5rem] flex items-center justify-center text-brand-green shadow-xl">
-                <GitFork size={24} />
+                <Layers size={24} />
               </div>
               <div>
                 <h2 className="text-xl sm:text-3xl font-display font-black text-brand-black uppercase italic tracking-tight leading-tight">Full Genetic <span className="text-brand-blue">Lineage</span></h2>
-                <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Multi-Generational Ancestry</p>
+                <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Professional Ancestry Verification</p>
               </div>
             </div>
             
-            <div className="flex items-center gap-4 sm:gap-6 bg-slate-50 px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl border border-slate-100 shadow-inner w-full sm:w-auto justify-center">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-brand-blue"></div>
-                <span className="text-[8px] font-black uppercase text-slate-500">Sire Line</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-brand-green"></div>
-                <span className="text-[8px] font-black uppercase text-slate-500">Dam Line</span>
-              </div>
-            </div>
-          </div>
-
-          {/* PEDIGREE TREE VIEW - DESKTOP HORIZONTAL */}
-          <div className="hidden lg:block relative min-h-[600px] select-none">
-            {/* Horizontal Branch Connectors */}
-            <div className="absolute inset-0 pointer-events-none z-0">
-               <svg className="w-full h-full" viewBox="0 0 1000 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M220 300 H280 M280 150 V450 M280 150 H340 M280 450 H340" stroke="#e2e8f0" strokeWidth="2" />
-                  <path d="M540 450 H600 M600 375 V525 M600 375 H660 M600 525 H660" stroke="#8cc63f" strokeWidth="2" strokeOpacity="0.4" />
-                  <path d="M860 525 H890 M890 490 V560 M890 490 H920 M890 560 H920" stroke="#8cc63f" strokeWidth="2" strokeOpacity="0.2" />
-               </svg>
-            </div>
-
-            <div className="grid grid-cols-4 gap-12 items-center h-full">
-               <div className="col-span-1 flex items-center justify-center">
-                  <div className="w-full">
-                    <PedigreeNode label="Sire Asset" name={bull.name} type="main" description="Current evaluation subject." />
-                  </div>
+            <div className="hidden lg:flex items-center gap-10 px-10 py-5 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner">
+               <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 rounded-full bg-brand-blue"></div>
+                  <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Paternal Segment</span>
                </div>
-               <div className="col-span-1 flex flex-col justify-around h-full py-16">
-                  <PedigreeNode label="Paternal Sire" name={bull.pedigree.sire} type="sire" />
-                  <PedigreeNode label="Maternal Dam" name={bull.pedigree.dam} type="dam" />
-               </div>
-               <div className="col-span-1 flex flex-col justify-end h-full pb-8">
-                  <div className="space-y-[110px]">
-                    <PedigreeNode label="Grand Sire" name={bull.pedigree.mgs} acronym="MGS" type="dam" />
-                    <PedigreeNode label="Grand Dam" name={bull.extendedPedigree?.mgd || 'N/A'} acronym="MGD" type="dam" />
-                  </div>
-               </div>
-               <div className="col-span-1 flex flex-col justify-end h-full pb-0">
-                  <div className="space-y-[35px]">
-                    <PedigreeNode label="Sire of Dam" name={bull.extendedPedigree?.mggs || 'N/A'} acronym="MGGS" type="dam" />
-                    <PedigreeNode label="Dam of Dam" name={bull.extendedPedigree?.mggd || 'N/A'} acronym="MGGD" type="dam" />
-                  </div>
+               <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 rounded-full bg-brand-green"></div>
+                  <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Maternal Segment</span>
                </div>
             </div>
           </div>
 
-          {/* PEDIGREE VIEW - MOBILE ACCORDION */}
+          {/* TABLE-BASED UI - DESKTOP ONLY (≥1024px) */}
+          <div className="hidden lg:block relative z-10 overflow-hidden rounded-3xl border border-slate-100 shadow-xl">
+             <table className="w-full text-left border-collapse">
+                <thead>
+                   <tr className="bg-brand-black text-white">
+                      <th className="px-10 py-8 font-display font-black text-[11px] uppercase tracking-[0.4em] border-r border-white/5">Generation</th>
+                      <th className="px-10 py-8 font-display font-black text-[11px] uppercase tracking-[0.4em] border-r border-white/5">Bloodline</th>
+                      <th className="px-10 py-8 font-display font-black text-[11px] uppercase tracking-[0.4em] border-r border-white/5">Ancestral Role</th>
+                      <th className="px-10 py-8 font-display font-black text-[11px] uppercase tracking-[0.4em]">Genetic Identity</th>
+                   </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                   {/* Subject Row */}
+                   <tr className="bg-brand-blue/5 group hover:bg-brand-blue/10 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100">
+                         <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Asset Subject</span>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-black rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-black uppercase tracking-widest italic">Primary</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100">
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sire Asset</span>
+                      </td>
+                      <td className="px-10 py-8">
+                         <p className="text-xl font-display font-black text-brand-black uppercase italic group-hover:translate-x-2 transition-transform">{bull.name}</p>
+                         <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Official Reference Data Entry</p>
+                      </td>
+                   </tr>
+
+                   {/* Generation 1 Rows */}
+                   <tr className="group hover:bg-slate-50 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100" rowSpan={2}>
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">1st Generation</span>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-blue/[0.02]">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-blue rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest italic">Paternal</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-blue/[0.02]">
+                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Direct Sire</span>
+                      </td>
+                      <td className="px-10 py-8 bg-brand-blue/[0.02]">
+                         <p className="text-lg font-display font-black text-brand-black uppercase tracking-tight group-hover:translate-x-2 transition-transform">{bull.pedigree.sire}</p>
+                      </td>
+                   </tr>
+                   <tr className="group hover:bg-slate-50 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.02]">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-green rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-widest italic">Maternal</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.02]">
+                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Direct Dam</span>
+                      </td>
+                      <td className="px-10 py-8 bg-brand-green/[0.02]">
+                         <p className="text-lg font-display font-black text-brand-black uppercase tracking-tight group-hover:translate-x-2 transition-transform">{bull.pedigree.dam}</p>
+                      </td>
+                   </tr>
+
+                   {/* Generation 2 Rows */}
+                   <tr className="group hover:bg-slate-50 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100" rowSpan={2}>
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">2nd Generation</span>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.04]">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-green rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-widest italic">Maternal</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.04]">
+                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Grand Sire (MGS)</span>
+                      </td>
+                      <td className="px-10 py-8 bg-brand-green/[0.04]">
+                         <p className="text-[15px] font-display font-black text-brand-black uppercase tracking-tight group-hover:translate-x-2 transition-transform">{bull.pedigree.mgs}</p>
+                      </td>
+                   </tr>
+                   <tr className="group hover:bg-slate-50 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.04]">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-green rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-widest italic">Maternal</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.04]">
+                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Grand Dam (MGD)</span>
+                      </td>
+                      <td className="px-10 py-8 bg-brand-green/[0.04]">
+                         <p className="text-[15px] font-display font-black text-brand-black uppercase tracking-tight group-hover:translate-x-2 transition-transform">{bull.extendedPedigree?.mgd || 'Not Logged'}</p>
+                      </td>
+                   </tr>
+
+                   {/* Generation 3 Rows */}
+                   <tr className="group hover:bg-slate-50 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100" rowSpan={2}>
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">3rd Generation</span>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.06]">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-green rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-widest italic">Maternal</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.06]">
+                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">MGGS</span>
+                      </td>
+                      <td className="px-10 py-8 bg-brand-green/[0.06]">
+                         <p className="text-[13px] font-display font-black text-brand-black uppercase tracking-tight group-hover:translate-x-2 transition-transform">{bull.extendedPedigree?.mggs || 'N/A'}</p>
+                      </td>
+                   </tr>
+                   <tr className="group hover:bg-slate-50 transition-colors">
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.06]">
+                         <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-6 bg-brand-green rounded-full"></div>
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-widest italic">Maternal</span>
+                         </div>
+                      </td>
+                      <td className="px-10 py-8 border-r border-slate-100 bg-brand-green/[0.06]">
+                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">MGGD</span>
+                      </td>
+                      <td className="px-10 py-8 bg-brand-green/[0.06]">
+                         <p className="text-[13px] font-display font-black text-brand-black uppercase tracking-tight group-hover:translate-x-2 transition-transform">{bull.extendedPedigree?.mggd || 'N/A'}</p>
+                      </td>
+                   </tr>
+                </tbody>
+             </table>
+          </div>
+
+          {/* PEDIGREE VIEW - MOBILE/TABLET ACCORDION STACK (Strictly Unchanged) */}
           <div className="lg:hidden space-y-6">
              <div className="mb-4">
                 <PedigreeNode label="Primary Sire" name={bull.name} type="main" />
@@ -478,6 +575,13 @@ const BullDetail: React.FC = () => {
                     </div>
                   </div>
                 )}
+             </div>
+          </div>
+          
+          <div className="mt-12 lg:mt-20 text-center">
+             <div className="inline-flex items-center gap-4 px-10 py-5 bg-slate-50 rounded-full border border-slate-100 shadow-sm transition-all hover:bg-white hover:shadow-md group">
+                <Dna size={18} className="text-brand-blue group-hover:rotate-12 transition-transform" />
+                <span className="text-[9px] lg:text-[11px] font-black text-slate-500 uppercase tracking-[0.3em] leading-none">Pedigree data is verified via official genomic registration and progeny records.</span>
              </div>
           </div>
         </section>
