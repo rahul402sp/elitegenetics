@@ -22,6 +22,11 @@ export interface Bull {
   description: string;
   published?: boolean;
   
+  // New fields for the premium card
+  breed?: string;
+  weight?: string;
+  age?: string;
+  
   stats: {
     gtpi: number;
     milk: number;
