@@ -4,7 +4,7 @@ import {
   ArrowLeft, Share2, Activity, Droplets, Heart, ShieldCheck, 
   Award, Zap, Ruler, Beaker, TrendingUp, Info, LayoutList, 
   ClipboardCheck, ChevronRight, BarChart4, Facebook, Twitter, Linkedin,
-  FileText, Activity as HealthIcon, Target, Scale, ZapOff, Gauge
+  FileText, Activity as HealthIcon, Target, Scale, ZapOff, Gauge, MousePointer2
 } from 'lucide-react';
 import { useBulls } from '../context/BullContext';
 
@@ -261,36 +261,44 @@ const BullDetail: React.FC = () => {
                         <div className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Reliability: {bull.evaluations.production.reliability}%</div>
                     </div>
                     <div className="p-8 sm:p-12">
-                        {/* Primary Production Metrics */}
-                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-10">
+                        {/* Primary Production Metrics Grid */}
+                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-12">
                             {[
-                                { label: 'Milk', val: bull.evaluations.production.milk, unit: 'lbs' },
+                                { label: 'Milk', val: bull.evaluations.production.milk, unit: 'lbs', icon: Droplets },
                                 { label: 'Fat %', val: `+${bull.evaluations.production.fatPct}%` },
                                 { label: 'Fat', val: `+${bull.evaluations.production.fat}`, unit: 'lbs' },
                                 { label: 'Prot %', val: `+${bull.evaluations.production.protPct}%` },
                                 { label: 'Prot', val: `+${bull.evaluations.production.prot}`, unit: 'lbs' },
                             ].map((p, i) => (
-                                <div key={i} className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center">
-                                    <span className="text-[8px] font-black text-gray-400 uppercase tracking-widest block mb-2">{p.label}</span>
+                                <div key={i} className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center hover:bg-white hover:shadow-lg transition-all group">
+                                    <span className="text-[8px] font-black text-gray-400 group-hover:text-brand-blue uppercase tracking-widest block mb-2">{p.label}</span>
                                     <span className="text-xl font-display font-black text-brand-black">{p.val}</span>
                                     {p.unit && <span className="text-[9px] font-bold text-gray-400 block mt-1">{p.unit}</span>}
                                 </div>
                             ))}
                         </div>
-                        {/* Economic Merit Indices */}
-                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
-                            {[
-                                { label: 'Net Merit $', val: `+$${bull.evaluations.production.nm}` },
-                                { label: 'DWP$', val: `+$${bull.evaluations.production.dwp}` },
-                                { label: 'Cheese Merit $', val: `+$${bull.evaluations.production.cm}` },
-                                { label: 'Fluid Merit $', val: `+$${bull.evaluations.production.fm}` },
-                                { label: 'Combined F+P', val: `+${bull.evaluations.production.cfp}` },
-                            ].map((m, i) => (
-                                <div key={i} className="flex justify-between items-center p-5 bg-white border border-slate-100 rounded-xl">
-                                    <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">{m.label}</span>
-                                    <span className="font-display font-black text-brand-black">{m.val}</span>
-                                </div>
-                            ))}
+
+                        {/* Economic Merit Indices - Integrated FM here */}
+                        <div className="space-y-6">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="h-px flex-grow bg-slate-100"></div>
+                                <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Economic Merit Indices</span>
+                                <div className="h-px flex-grow bg-slate-100"></div>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
+                                {[
+                                    { label: 'Net Merit $', val: `+$${bull.evaluations.production.nm}`, highlight: true },
+                                    { label: 'DWP$', val: `+$${bull.evaluations.production.dwp}` },
+                                    { label: 'Cheese Merit $', val: `+$${bull.evaluations.production.cm}` },
+                                    { label: 'Fluid Merit $', val: `+$${bull.evaluations.production.fm}`, highlight: true },
+                                    { label: 'Combined F+P', val: `+${bull.evaluations.production.cfp}` },
+                                ].map((m, i) => (
+                                    <div key={i} className={`flex justify-between items-center p-5 rounded-2xl border transition-all ${m.highlight ? 'bg-brand-black text-white border-brand-black shadow-md' : 'bg-white border-slate-100 text-brand-black'}`}>
+                                        <span className={`text-[9px] font-black uppercase tracking-widest ${m.highlight ? 'text-brand-green' : 'text-gray-400'}`}>{m.label}</span>
+                                        <span className="font-display font-black">{m.val}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -318,13 +326,13 @@ const BullDetail: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Functional Traits */}
+                    {/* Functional Traits - Refined Grid */}
                     <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 overflow-hidden flex flex-col">
                         <div className="bg-brand-blue p-8 flex items-center gap-4 text-white">
                             <HealthIcon size={24} className="text-white" />
                             <h3 className="font-display font-black uppercase tracking-tight text-lg italic">Health & Functional</h3>
                         </div>
-                        <div className="p-8 grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+                        <div className="p-8 grid grid-cols-2 gap-x-6 gap-y-4">
                             {[
                                 { label: 'FI', val: `+${bull.evaluations.health.fi}` },
                                 { label: 'DPR', val: bull.evaluations.health.dpr },
@@ -334,15 +342,22 @@ const BullDetail: React.FC = () => {
                                 { label: 'SCS', val: bull.evaluations.health.scs },
                                 { label: 'PL', val: `+${bull.evaluations.health.pl}` },
                                 { label: 'FE', val: bull.evaluations.health.fe },
-                                { label: 'RFI', val: bull.evaluations.health.rfi },
-                                { label: 'Feed Saved', val: `+${bull.evaluations.health.feedSaved}` },
-                                { label: 'Milk Speed', val: bull.evaluations.health.milkingSpeed },
+                                // Refined new parameters
+                                { label: 'RFI', val: bull.evaluations.health.rfi, special: true },
+                                { label: 'Feed Saved', val: `+${bull.evaluations.health.feedSaved}`, special: true },
+                                { label: 'Milk Speed', val: bull.evaluations.health.milkingSpeed, special: true },
                             ].map((h, i) => (
-                                <div key={i} className="flex flex-col justify-center py-4 border-b border-slate-50 last:border-0 group">
-                                    <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1 group-hover:text-brand-blue transition-colors">{h.label}</span>
+                                <div key={i} className={`flex justify-between items-center p-4 rounded-xl transition-all ${h.special ? 'bg-slate-50 border border-slate-100' : 'bg-transparent border-b border-slate-50'}`}>
+                                    <span className={`text-[9px] font-black uppercase tracking-widest ${h.special ? 'text-brand-blue' : 'text-gray-400'}`}>{h.label}</span>
                                     <span className="font-display font-black text-brand-black">{h.val}</span>
                                 </div>
                             ))}
+                        </div>
+                        <div className="px-8 pb-8 pt-2">
+                             <div className="bg-brand-blue/5 p-4 rounded-2xl flex items-center gap-3">
+                                <Info size={14} className="text-brand-blue" />
+                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">Optimized for Commercial Longevity</p>
+                             </div>
                         </div>
                     </div>
                 </div>
