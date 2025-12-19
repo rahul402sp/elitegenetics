@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, 
   Award, Zap, ChevronRight, Binary, Globe2, 
   Dna, Microscope, ArrowUpRight, BarChart3, Database, Lock,
-  Check
+  Check, Info
 } from 'lucide-react';
 import BullCard from '../components/BullCard';
 import { BULLS } from '../constants';
@@ -57,10 +57,10 @@ const Home: React.FC = () => {
                   Explore Portfolio <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                 </Link>
                 <Link 
-                  to="/admin/login" 
+                  to="/about" 
                   className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs transition-all flex items-center justify-center hover:border-white/40 active:scale-95 gap-3"
                 >
-                  <Lock size={14} /> Admin Login
+                  <Info size={14} /> About Us
                 </Link>
               </div>
 
