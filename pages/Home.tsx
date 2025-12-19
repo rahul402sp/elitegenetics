@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -263,14 +262,14 @@ const Home: React.FC = () => {
 
                 <div className="bg-white p-10 sm:p-20 rounded-[4rem] border border-slate-200 shadow-[0_40px_100px_-20px_rgba(15,23,42,0.08)] relative z-10 flex flex-col items-center">
                   
-                  {/* Primary Partner Logo with Grayscale-to-Color Hover Effect */}
+                  {/* Primary Partner Logo - EXACT Original Colors */}
                   <div className="group/logo relative w-full mb-12 flex flex-col items-center">
                     <div className="bg-slate-50/50 w-full aspect-video rounded-3xl p-12 flex items-center justify-center border border-slate-100/50 transition-all duration-500 hover:border-brand-blue hover:bg-white group-hover/logo:shadow-2xl">
-                      <div className="transition-all duration-700 grayscale group-hover/logo:grayscale-0 filter">
+                      <div className="transition-all duration-700">
                         <img 
                           src="https://www.ai-total.com/sites/www.ai-total.com/images/logo/logo.png" 
                           alt="AITotal Primary Partner" 
-                          className="max-w-full h-auto object-contain max-h-[140px] transform transition-transform duration-700 scale-95 group-hover/logo:scale-105"
+                          className="max-w-full h-auto object-contain max-h-[140px] transform transition-transform duration-700 scale-95 group-hover/logo:scale-100"
                         />
                       </div>
                     </div>
