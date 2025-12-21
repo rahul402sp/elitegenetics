@@ -640,9 +640,6 @@ const BullDetail: React.FC = () => {
                     <Link to="/contact" className="flex-grow bg-brand-black text-white px-8 py-5 sm:py-6 rounded-xl sm:rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] sm:text-[12px] text-center shadow-xl hover:bg-brand-blue transition-all active:scale-95">
                        Authorize Order
                     </Link>
-                    <button className="px-8 py-5 sm:py-6 bg-slate-50 text-slate-400 border border-slate-200 rounded-xl sm:rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] sm:text-[12px] hover:bg-white hover:text-slate-900 transition-all flex items-center justify-center gap-3">
-                       <Download size={16} /> Official Proof
-                    </button>
                  </div>
               </div>
 
